@@ -121,7 +121,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'moments',
-    'south'
+    'south',
+    'tastypie'
 )
 
 # A sample logging configuration. The only tangible logging

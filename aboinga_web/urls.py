@@ -1,8 +1,10 @@
 from django.conf import settings
 from django.conf.urls.defaults import patterns, include, url
 from django.contrib import admin
+from moments.api import ABOINGA_API
 from os import path
 admin.autodiscover()
+
 
 
 urlpatterns = patterns('',
@@ -17,6 +19,8 @@ urlpatterns = patterns('',
 
     url(r'^internal_admin/', include(admin.site.urls)),
 
-    url(r'', include('aboinga_web.moments.urls')),
+    (r'^api/', include(ABOINGA_API.urls)),
+
+    url(r'^$', include('aboinga_web.moments.urls')),
 
 )

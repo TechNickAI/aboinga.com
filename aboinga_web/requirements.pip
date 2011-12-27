@@ -3,3 +3,6 @@ MySQL-python==1.2.3
 South==0.7.3
 # Had to get pil from http://dist.plone.org/thirdparty/PIL-1.1.7.tar.gz because default pip had 502 bad gateway for it
 pil==1.1.7
+
+# Fork of tastypie that supports json indenting
+-e git+git://github.com/krux/django-tastypie.git#egg=django-tastypie
