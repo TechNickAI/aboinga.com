@@ -8,7 +8,6 @@ class MomentResource(ModelResource):
         # TODO: cache
         # TODO: throttle
         # TODO: filtering
-        # TODO: file handling
         include_resource_uri = False
         limit = 100 
         ordering = ['created_at']

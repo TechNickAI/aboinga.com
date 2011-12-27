@@ -51,8 +51,10 @@ Webapp
 			) cache control headers on static
 		) Traditional File upload for older browsers and stupid people
 		) Facebook page
+		) Custom slugs/urls 
 
 	Someday
+		) Smarter slugifyier
 		) Image editing
 			) Cropping
 			) Censor bar
