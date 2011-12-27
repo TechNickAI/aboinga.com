@@ -20,6 +20,9 @@ Webapp
 		) Email notification on new events. Django notification?
 		) django compressor
 		) Google Analytics
+		) Apache setup
+			) serve static
+			) cache control headers on static
 
 	Someday
 		) Rating mechanism

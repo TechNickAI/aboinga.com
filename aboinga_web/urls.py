@@ -1,17 +1,19 @@
+from django.conf import settings
 from django.conf.urls.defaults import patterns, include, url
+from django.contrib import admin
+from os import path
+admin.autodiscover()
 
-# Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'aboinga_web.views.home', name='home'),
-    # url(r'^aboinga_web/', include('aboinga_web.foo.urls')),
+    (r'^static/(?P<path>.*)$', 'django.views.static.serve',
+        {'document_root': path.join(settings.ROOT_PATH, 'static')}),
+    (r'^(favicon.ico)', 'django.views.static.serve',
+        {'document_root' : path.join(settings.ROOT_PATH, 'static', 'img')}),
+    (r'^(robots.txt)', 'django.views.static.serve',
+        {'document_root' : path.join(settings.ROOT_PATH, 'static')}),
 
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+    url(r'', include('aboinga_web.moments.urls')),
 
-    # Uncomment the next line to enable the admin:
-    # url(r'^admin/', include(admin.site.urls)),
+    url(r'^internal_admin/', include(admin.site.urls)),
 )

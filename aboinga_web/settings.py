@@ -1,6 +1,10 @@
 # Django settings for aboinga_web project.
+import os
 
 ### Note that we use a local_settings.py for any specific settings that can't be shared
+
+ROOT_PATH = os.path.dirname(__file__)
+
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -115,10 +119,8 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
+    'django.contrib.admin',
+    'moments'
 )
 
 # A sample logging configuration. The only tangible logging
