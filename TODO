@@ -1,0 +1,46 @@
+Webapp
+	Alpha/iphone read
+		) API
+		) models
+		) django admin set up 
+		) compression/storage of incoming images
+		) Uploader
+			) Url
+			) html 5 drag and drop
+			) File upload
+			) Unit test
+		) front end to display recents
+			) Backbone interacting with api
+
+	Into the wild
+		) Warn matt
+		) "Take this down" flagging
+		) Seed data loader
+		) Submit to google for crawling
+		) Email notification on new events. Django notification?
+		) django compressor
+		) Google Analytics
+
+	Someday
+		) Rating mechanism
+		) private areas (Samy's request)
+		) S3 for storage of images
+		) CDN
+		) expiration date on posts
+		) Throttle on API
+
+iOS
+	Alpha
+		) Developer account with apple
+		) Display recents via API
+		) Select picture to upload
+
+	Public launch
+
+	Someday
+		) get a picture back
+
+
+Stuff to figure out
+	) Monetization
+	) Rating mechanism
