@@ -12,6 +12,8 @@ urlpatterns = patterns('',
         {'document_root' : path.join(settings.ROOT_PATH, 'static', 'img')}),
     (r'^(robots.txt)', 'django.views.static.serve',
         {'document_root' : path.join(settings.ROOT_PATH, 'static')}),
+    (r'^user_media/(?P<path>.*)$', 'django.views.static.serve',
+        {'document_root': path.join(settings.ROOT_PATH, 'user_media')}),
 
     url(r'^internal_admin/', include(admin.site.urls)),
 
