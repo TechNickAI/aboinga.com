@@ -23,6 +23,9 @@ Webapp
 			) Unit test
 
 	Friends
+		) Rotation
+		) Loading indicator
+		) Separate dev env
 		) Points system
 		) "Take this down" flagging
 		) Email notification on new events. Django notification?
@@ -50,6 +53,9 @@ Webapp
 		) Facebook page
 
 	Someday
+		) Image editing
+			) Cropping
+			) Censor bar
 		) Image tags?
 		) Image titles?
 		) Watermark the images

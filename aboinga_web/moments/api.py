@@ -11,7 +11,7 @@ class MomentResource(ModelResource):
         # TODO: file handling
         include_resource_uri = False
         limit = 100 
-        ordering = ['-created_at']
+        ordering = ['created_at']
         queryset = Moment.objects.all()
         resource_name = 'moment'
 

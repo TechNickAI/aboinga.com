@@ -1,5 +1,18 @@
 {% extends 'base.html' %}
+{% load verbatim %}
 
 {% block content %}
-Hello, properly organized templates!
+<div id="momentContainer">
+  <div id="momentHeader">Recent moments</div>
+  <div id="moments"></div>
+</div><!-- #feed -->
+
+{% verbatim %}
+<script id="momentSummary" type="text/html">
+<li class="moment" data-id="{{id}}"><img src="{{ photo }}"/></li>
+</script>
+<script src="/static/js/home.js"></script>
+<script>home();</script>
+{% endverbatim %}
+
 {% endblock content %}
