@@ -1,0 +1,5 @@
+Files for aboinga.com website and iPhone app.
+
+Feel free to fork. I'd love to see pull requests.
+
+Sensitive settings for the django app are in local_settings.py.
