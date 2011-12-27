@@ -6,10 +6,9 @@ from os import path
 admin.autodiscover()
 
 
-
 urlpatterns = patterns('',
-    (r'^static/(?P<path>.*)$', 'django.views.static.serve',
-        {'document_root': path.join(settings.ROOT_PATH, 'static')}),
+#    (r'^static/(?P<path>.*)$', 'django.views.static.serve',
+#        {'document_root': path.join(settings.ROOT_PATH, 'static')}),
     (r'^(favicon.ico)', 'django.views.static.serve',
         {'document_root' : path.join(settings.ROOT_PATH, 'static', 'img')}),
     (r'^(robots.txt)', 'django.views.static.serve',
