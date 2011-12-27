@@ -1,5 +1,7 @@
 # Django settings for aboinga_web project.
 
+### Note that we use a local_settings.py for any specific settings that can't be shared
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -27,7 +29,7 @@ DATABASES = {
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'America/Los_Angeles'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -37,11 +39,11 @@ SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
-USE_I18N = True
+USE_I18N = False
 
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale
-USE_L10N = True
+USE_L10N = False
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
@@ -82,8 +84,6 @@ STATICFILES_FINDERS = (
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = '=itr)g)#1rgt+a^t@^2+oe#f8xao*a+*e(ct6y_odg#jid-p&_'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -143,3 +143,9 @@ LOGGING = {
         },
     }
 }
+
+# If there is a file named local_settings.py in this directory, load it.
+try:
+    from local_settings import *
+except ImportError:
+    pass
