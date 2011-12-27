@@ -1,10 +1,12 @@
 Webapp
 	Alpha/iphone read
-		) API
-		) models
-		) django admin set up 
+		X) models
+		X) django admin set up 
+		X) South
 		) compression/storage of incoming images
+		) API
 		) Uploader
+			) Dupe protection
 			) Url
 			) html 5 drag and drop
 			) File upload
@@ -25,7 +27,9 @@ Webapp
 			) cache control headers on static
 
 	Someday
+		) User accounts (anon by default)
 		) Rating mechanism
+		) List out popular
 		) private areas (Samy's request)
 		) S3 for storage of images
 		) CDN

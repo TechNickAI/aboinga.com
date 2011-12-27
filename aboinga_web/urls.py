@@ -13,7 +13,8 @@ urlpatterns = patterns('',
     (r'^(robots.txt)', 'django.views.static.serve',
         {'document_root' : path.join(settings.ROOT_PATH, 'static')}),
 
+    url(r'^internal_admin/', include(admin.site.urls)),
+
     url(r'', include('aboinga_web.moments.urls')),
 
-    url(r'^internal_admin/', include(admin.site.urls)),
 )
