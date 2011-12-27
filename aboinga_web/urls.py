@@ -7,8 +7,6 @@ admin.autodiscover()
 
 
 urlpatterns = patterns('',
-#    (r'^static/(?P<path>.*)$', 'django.views.static.serve',
-#        {'document_root': path.join(settings.ROOT_PATH, 'static')}),
     (r'^(favicon.ico)', 'django.views.static.serve',
         {'document_root' : path.join(settings.ROOT_PATH, 'static', 'img')}),
     (r'^(robots.txt)', 'django.views.static.serve',
@@ -20,6 +18,6 @@ urlpatterns = patterns('',
 
     (r'^api/', include(ABOINGA_API.urls)),
 
-    url(r'^$', include('aboinga_web.moments.urls')),
+    url(r'', include('aboinga_web.moments.urls')),
 
 )

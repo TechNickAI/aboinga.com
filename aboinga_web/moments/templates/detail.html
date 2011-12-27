@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block head_misc_extra %}
+{% if moment.public %}
+  <link href="canonical" href="{{moment.get_absolute_url}}"/>
+{% else %}
+  <meta name="ROBOTS" content="NOINDEX"/>
+{% endif %}
+{% endblock head_misc_extra %}
+
+
+{% block content %}
+<div id="momentContainer">
+  <div id="momentHeader">{{moment.slug}}</div>
+  <div class="moment"><a href="{{moment.photo.url}}"/><img src="{{moment.photo.url}}"/></a></div>
+</div><!-- #momentContainer -->
+{% endblock content %}

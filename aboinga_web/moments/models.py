@@ -22,6 +22,13 @@ class Moment(models.Model):
         # Will the real save please stand up?
         super(Moment, self).save()
 
+
+    def get_absolute_url(self):
+        if self.public:
+            return '/moment/%s' % self.slug
+        else:
+            return '/moment/not-public/%s' % self.slug
+
     def __unicode__(self):
         return '%s - (%s)' % (self.slug, self.photo.name)
 
