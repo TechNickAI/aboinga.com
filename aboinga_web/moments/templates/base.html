@@ -1,0 +1,29 @@
+{% extends 'bare_base.html' %}
+
+{% block head_includes %}
+  {% block head_includes_css %}
+        <link href="/static/css/my.css" rel="stylesheet"/>
+  {% endblock head_includes_css %}
+  {% block head_includes_css_extra %}{% endblock head_includes_css_extra %}
+  {% block head_includes_js %}
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script src="/static/js/underscore-1.2.3.js"></script>
+  <script src="/static/js/backbone-0.5.3.js"></script>
+  <script src="/static/js/my.js"></script>
+  {% endblock head_includes_js %}
+  {% block head_includes_js_extra %}{% endblock head_includes_js_extra %}
+  {% block head_misc %}
+    <meta name="keywords" content="embarassing pictures, pictures too embarassing for facebook"/>
+    <meta name="description" content="upload pictures for other strangers to see"/>
+  {% endblock head_misc %}
+  {% block head_misc_extra %}{% endblock head_misc_extra %}
+{% endblock head_includes %}
+
+{% block bare_content %}
+<div id="all_content">
+  <h2>aboinga.com</h2>
+  <div id="content">
+    {% block content %}{% endblock content %}
+  </div><!-- #content -->
+</div><!-- #all_content -->
+{% endblock bare_content %}

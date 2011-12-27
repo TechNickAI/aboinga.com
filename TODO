@@ -1,34 +1,58 @@
+Stuff to figure out
+	) Monetization
+	) Rating mechanism
+	) Points algorithm. Levers:
+		- Upload
+		- View
+		- Like
+		- Share - No!
+
 Webapp
 	Alpha/iphone read
 		X) models
 		X) django admin set up 
 		X) South
 		X) storage of incoming images
-		) API
+		X) API
+		) front end to display recents
+			) Backbone interacting with api
 		) Uploader
 			) Dupe protection
 			) Url
 			) html 5 drag and drop
-			) File upload
 			) Unit test
-		) front end to display recents
-			) Backbone interacting with api
+
+	Friends
+		) Points system
+		) "Take this down" flagging
+		) Email notification on new events. Django notification?
+		) Google Analytics
+		) Copy
+
+	App ready
+		) Logo
+		) Website template
+		) Compression/sanity checks on incoming images
+		) Seed data loader
 
 	Into the wild
-		) Compression/sanity checks on incoming images
+		) Basic SEO
+			Canonical hrefs
+			meta description/keywords
 		) Fix image deletion
 		) Warn matt
-		) "Take this down" flagging
-		) Seed data loader
 		) Submit to google for crawling
-		) Email notification on new events. Django notification?
 		) django compressor
-		) Google Analytics
 		) Apache setup
 			) serve static
 			) cache control headers on static
+		) Traditional File upload for older browsers and stupid people
+		) Facebook page
 
 	Someday
+		) Image tags?
+		) Image titles?
+		) Watermark the images
 		) User accounts (anon by default)
 		) Rating mechanism
 		) List out popular
@@ -40,16 +64,16 @@ Webapp
 
 iOS
 	Alpha
-		) Developer account with apple
+		X) Developer account with apple
 		) Display recents via API
 		) Select picture to upload
+
+	Friends
 
 	Public launch
 
 	Someday
 		) get a picture back
+		) 
 
 
-Stuff to figure out
-	) Monetization
-	) Rating mechanism
