@@ -9,10 +9,15 @@
 
 {% verbatim %}
 <script id="momentSummary" type="text/html">
-<li class="moment" data-id="{{id}}"><img src="{{ photo }}"/></li>
+<li class="moment" data-id="{{id}}">
+	<img src="{{ photo }}"/><br />
+	Uploaded <span title="{{creatd_at}}">{{ created_at_ago }}</span><br />
+	[ <a class="flag">Flag</a> ]
+</li>
 </script>
+{% endverbatim %}
+
 <script src="/static/js/home.js"></script>
 <script>home();</script>
-{% endverbatim %}
 
 {% endblock content %}

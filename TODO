@@ -14,18 +14,19 @@ Webapp
 		X) South
 		X) storage of incoming images
 		X) API
-		) front end to display recents
-			) Backbone interacting with api
+		X) front end to display recents
+			X) Backbone interacting with api
 		) Uploader
-			) Dupe protection
 			) Url
 			) html 5 drag and drop
 			) Unit test
+		) UI flow
+		) Styling. Free template from somewhere?
+		) Pagination
 
 	Friends
 		) Rotation
 		) Loading indicator
-		) Separate dev env
 		) Points system
 		) "Take this down" flagging
 		) Email notification on new events. Django notification?
@@ -33,16 +34,20 @@ Webapp
 		) Copy
 
 	App ready
+		) Capture upload IP. Through varnish/cdns
+		) Unit tests
+		) Separate dev env
 		) Logo
 		) Website template
 		) Compression/sanity checks on incoming images
 		) Seed data loader
 
 	Into the wild
+		) Dupe protection
 		) Basic SEO
 			Canonical hrefs
 			meta description/keywords
-		) Fix image deletion
+		) Fix image deletion (files not getting removed)
 		) Warn matt
 		) Submit to google for crawling
 		) django compressor
@@ -54,6 +59,7 @@ Webapp
 		) Custom slugs/urls 
 
 	Someday
+		) Geo targeting for "near xxx"
 		) Smarter slugifyier
 		) Image editing
 			) Cropping

@@ -5,6 +5,11 @@ body {
 	font-family: helvetica,arial, verdana, tahoma, 'Sans Serif';
 }
 
+.moment {
+	margin-bottom: 10px;
+	font-size: smaller;
+}
+
 .moment img {
 	width: 500px;
 }
