@@ -17,4 +17,5 @@ body {
 
 #uploadContainer {
 	float: right;
+	width: 400px;
 }
