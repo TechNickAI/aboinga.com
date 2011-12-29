@@ -8,7 +8,8 @@ var home = function() {
 	    for (var i = 0; i < window.moments.models.length; i++ ){
             var m = window.moments.models[i].attributes;
             // Why is icanhaz returning an array of jquery objects?!
-		    cont.find("ul").append(window.ich.momentSummary(m));
+		    //cont.find("ul").append(window.ich.momentSummary(m));
+		    cont.find("ul").append(window.tmpl('momentSummary', m));
 	    }
         cont.fadeIn();
     };
