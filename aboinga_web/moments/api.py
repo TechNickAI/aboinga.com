@@ -3,6 +3,7 @@ from django.conf.urls.defaults import url
 from django.core.files import File
 from django.http import HttpResponseBadRequest
 from tastypie.api import Api
+from tastypie.authorization import Authorization
 from tastypie.resources import ModelResource
 from tastypie.utils import trailing_slash
 import datetime
@@ -18,6 +19,7 @@ class MomentResource(ModelResource):
         # TODO: cache
         # TODO: throttle
         # TODO: filtering
+        authorization = Authorization()
         include_resource_uri = False
         limit = 25 
         ordering = ['created_at']

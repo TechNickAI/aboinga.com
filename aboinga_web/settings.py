@@ -45,6 +45,10 @@ SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 # Use etags. 
 USE_ETAGS = True
 
+APPEND_SLASH = False
+
+TASTYPIE_ALLOW_MISSING_SLASH = True
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.

@@ -1,5 +1,6 @@
 from django.db import models
 from hashlib import md5
+import os
 
 
 class Moment(models.Model):
@@ -22,6 +23,11 @@ class Moment(models.Model):
         # Will the real save please stand up?
         super(Moment, self).save()
 
+    # Override delete to remove the file
+    def delete(self, *args, **kwargs):
+        photofile = self.photo.path
+        super(Moment, self).save(*args, **kwargs) # Call the "real" delete() method.
+        os.remove(photofile)
 
     def get_absolute_url(self):
         if self.public:

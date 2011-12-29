@@ -10,6 +10,13 @@ var home = function() {
             // Why is icanhaz returning an array of jquery objects?!
 		    cont.find("ul").append(window.ich.momentSummary(m));
 	    }
+        // Set up the handlers
+        cont.find("img.delete").click(function() {
+            var img = $(this);
+            var m = window.moments.get(img.attr("data-id"));
+            m.destroy();
+            $("#moment_" + img.attr("data-id")).fadeOut().empty();
+        });
         cont.show();
     };
 
