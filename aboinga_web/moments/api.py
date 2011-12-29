@@ -30,6 +30,10 @@ class MomentResource(ModelResource):
 
         return bundle
 
+    def hydrate(self, bundle):
+        # Set the upload_ip
+        bundle.obj.upload_ip = get_real_ip(bundle.request)
+
     def override_urls(self):
         return [
             url(r"^(?P<resource_name>%s)/upload%s$" % (self._meta.resource_name, trailing_slash()), self.wrap_view('api_upload'), name="api_upload"),
@@ -48,12 +52,26 @@ class MomentResource(ModelResource):
         my_moment = Moment()
         photo = File(open(fullfile, 'rw'))
         my_moment.photo = photo
+        my_moment.upload_ip = get_real_ip(request)
         my_moment.save()
         os.remove(fullfile)
 
         bundle = self.build_bundle(obj=my_moment, request=request)
         bundle = self.full_dehydrate(bundle)
         return self.create_response(request, bundle)
+
+
+def get_real_ip(request):
+    """ Get the IP from the proxy (varnish, cdn) if one is used"""
+    if "HTTP_X_FORWARDED_FOR" in request.META:
+        # multiple proxies, take the first one
+        if ',' in request.META["HTTP_X_FORWARDED_FOR"]:
+            parts = request.META["HTTP_X_FORWARDED_FOR"].split(',')
+            return parts[0].strip()
+        else:
+            return request.META["HTTP_X_FORWARDED_FOR"]
+    else:
+        return request.META["REMOTE_ADDR"]
 
 
 # This is called from urls.py
