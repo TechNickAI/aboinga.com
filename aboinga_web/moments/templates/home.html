@@ -51,16 +51,30 @@
     </script>
   </div><!-- #uploadContainer -->
 
-  <div id="momentHeader">Recent moments</div>
+  <div id="momentHeader"></div>
   <div id="moments"></div>
 </div><!-- #momentContainer -->
 
 {% verbatim %}
 <script id="momentSummary" type="text/html">
-<li class="moment" data-id="{{id}}">
-	<img src="{{ photo }}"/><br />
-	Uploaded <span title="{{created_at}}">{{ created_at_ago }}</span><br />
-	[ <a class="flag">Flag</a> ]
+<li class="moment" id="moment_{{id}}" >
+	<img class="photo" src="{{ photo }}"/><br />
+	<div class="uploadedInfo">Uploaded <span title="{{created_at}}">{{ created_at_ago }} near xxxxxxx, xx</div>
+	<div class="momentActions">
+	  <img class="action rate" title="Forgettable" data-id="{{id}}" data-rating="1" src="/static/img/rating_star_empty.gif"/>
+	  <img class="action rate" title="Inconsequential" data-id="{{id}}" data-rating="2" src="/static/img/rating_star_empty.gif"/>
+	  <img class="action rate" title="Eventful" data-id="{{id}}" data-rating="3" src="/static/img/rating_star_empty.gif"/>
+	  <img class="action rate" title="Noteworthy" data-id="{{id}}" data-rating="4" src="/static/img/rating_star_empty.gif"/>
+	  <img class="action rate" title="Significant" data-id="{{id}}" data-rating="5" src="/static/img/rating_star_empty.gif"/>
+	  <img class="action rate" title="Remarkable" data-id="{{id}}" data-rating="6" src="/static/img/rating_star_empty.gif"/>
+	  <img class="action rate" title="Exceptional" data-id="{{id}}" data-rating="7" src="/static/img/rating_star_empty.gif"/>
+	  <img class="action rate" title="Monumental" data-id="{{id}}" data-rating="8" src="/static/img/rating_star_empty.gif"/>
+	  <img class="action rate" title="Epic" data-id="{{id}}" data-rating="9" src="/static/img/rating_star_empty.gif"/>
+	  <img class="action rate" title="Legendary" data-id="{{id}}" data-rating="10" src="/static/img/rating_star_empty.gif"/>
+	  &nbsp;
+	  <img class="action flag" title="Flag as inappropriate" data-id="{{id}}" src="/static/img/flag_blue.png">
+	  <img class="action flag" title="Take it down" data-id="{{id}}" src="/static/img/delete.png">
+	</div>
 </li>
 </script>
 {% endverbatim %}

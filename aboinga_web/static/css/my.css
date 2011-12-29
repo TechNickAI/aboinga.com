@@ -7,15 +7,25 @@ body {
 }
 
 .moment {
-	margin-bottom: 10px;
-	font-size: smaller;
+	width: 500px;
+	margin-bottom: 20px;
 }
 
-.moment img {
+.moment img.photo {
 	width: 500px;
 }
 
 #uploadContainer {
 	float: right;
 	width: 400px;
+}
+
+.moment .uploadedInfo {
+	float: right;
+	color: gray;
+	font-size: 10px;
+}
+
+.momentActions img {
+	cursor: pointer;
 }
