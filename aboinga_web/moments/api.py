@@ -5,10 +5,12 @@ from django.http import HttpResponseBadRequest
 from tastypie.api import Api
 from tastypie.resources import ModelResource
 from tastypie.utils import trailing_slash
+import datetime
 import os
 import repoze.timeago
 
 UPLOADED_FILES_DIR = "/var/www/aboinga.com/upload/php/files"
+repoze.timeago._NOW = datetime.datetime.now
 
 class MomentResource(ModelResource):
 
