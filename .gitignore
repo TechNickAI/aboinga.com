@@ -3,3 +3,4 @@
 local_settings.py
 user_media
 collected_static
+CACHE

@@ -121,7 +121,7 @@ STATICFILES_FINDERS = (
 # http://django_compressor.readthedocs.org/en/latest/settings/
 # Use this to force it on for dev. default is the opposite of DEBUG
 COMPRESS_ENABLED = True
-
+COMPRESS_ROOT = ROOT_PATH + '/static/'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
