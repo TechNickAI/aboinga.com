@@ -29,3 +29,12 @@ body {
 .momentActions img {
 	cursor: pointer;
 }
+
+/* Unreset */
+input[type=radio] {
+	margin-top: 10px;
+	margin-right: 10px;
+}
+input {
+	margin-bottom: 10px;
+}

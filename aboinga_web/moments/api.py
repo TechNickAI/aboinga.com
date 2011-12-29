@@ -59,6 +59,18 @@ class MomentResource(ModelResource):
         photo = File(open(fullfile, 'rw'))
         my_moment.photo = photo
         my_moment.upload_ip = get_real_ip(request)
+        expires_at = request.POST.get("expires_at", "")
+        # TODO: dynamically parse strings like "1 day" to timedeltas
+        if expires_at == "1 day":
+            my_moment.expires = datetime.datetime.now() + datetime.timedelta(days=1)
+        elif expires_at == "1 week":
+            my_moment.expires = datetime.datetime.now() + datetime.timedelta(weeks=1)
+        elif expires_at == "1 month":
+            my_moment.expires = datetime.datetime.now() + datetime.timedelta(months=1)
+
+        if request.POST.get("public") == "0":
+            my_moment.public = 0
+
         my_moment.save()
         os.remove(fullfile)
 

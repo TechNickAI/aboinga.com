@@ -5,11 +5,23 @@
 <div id="momentContainer">
   <div id="uploadContainer">
     <link rel="stylesheet" href="http://upload.aboinga.com/jquery.fileupload-ui.css">
-    Upload yours. Browse or Drag n' Drop.<br />
+    Browse or Drag n' Drop.<br />
     <input id="fileupload" type="file" name="files[]" multiple="true"/>
     <div class="fileupload-buttonbar">
 	<div class="progressbar fileupload-progressbar" style="display:none"><div style="width:0%;"></div></div>
     </div>
+    Visible to:<br />
+    <input type="radio" name="public" value="1" checked="true"/>Everyone
+    <input type="radio" name="public" value="0"/>Only people who know the url
+    <br />
+    <br />
+    Around for:<br />
+    <input type="radio" name="expires_at" value="" checked="true"/>ever
+    <input type="radio" name="expires_at" value="1 day"/>a day
+    <input type="radio" name="expires_at" value="1 week"/>a week
+    <input type="radio" name="expires_at" value="1 month"/>a month
+
+
     <script src="http://upload.aboinga.com/vendor/jquery.ui.widget.js"></script>
     <script src="http://upload.aboinga.com/jquery.fileupload.js"></script>
     <script>
@@ -24,7 +36,10 @@
 		    $.ajax({
 			type: 'POST',
 			url: "/api/v1/moment/upload/",
-			data: { "file": file.name },
+			data: { "file": file.name,
+				"expires_at": jQuery("input[name=expires_at]:checked").val(),
+				"public": jQuery("input[name=public]:checked").val()
+			},
 			success: function(data) {
 				var newMoment = $(ich.momentSummary(data)).hide();
 				jQuery("#moments").prepend(newMoment);
