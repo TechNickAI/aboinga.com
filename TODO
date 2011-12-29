@@ -36,7 +36,7 @@ Webapp
 	App ready
 		) Capture upload IP. Through varnish/cdns
 		) Unit tests
-		) Separate dev env
+		X) Separate dev env
 		) Logo
 		) Website template
 		) Compression/sanity checks on incoming images
@@ -51,9 +51,9 @@ Webapp
 		) Warn matt
 		) Submit to google for crawling
 		) django compressor
-		) Apache setup
-			) serve static
-			) cache control headers on static
+		X) Apache setup
+			X) serve static
+			X) cache control headers on static
 		) Traditional File upload for older browsers and stupid people
 		) Facebook page
 		) Custom slugs/urls 

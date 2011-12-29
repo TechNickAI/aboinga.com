@@ -5,6 +5,7 @@
         <link href="/static/css/my.css" rel="stylesheet"/>
   {% endblock head_includes_css %}
   {% block head_includes_css_extra %}{% endblock head_includes_css_extra %}
+
   {% block head_includes_js %}
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script src="/static/js/underscore-1.2.3.js"></script>
@@ -14,16 +15,19 @@
   <script src="/static/js/models.js"></script>
   {% endblock head_includes_js %}
   {% block head_includes_js_extra %}{% endblock head_includes_js_extra %}
+
   {% block head_misc %}
-    <meta name="keywords" content="embarassing pictures, pictures too embarassing for facebook"/>
-    <meta name="description" content="upload pictures for other strangers to see"/>
+    <meta name="keywords" content="embarassing pictures, embarassing pics"/>
+    <meta name="description" content="upload embarassing pictures for other strangers to see"/>
   {% endblock head_misc %}
   {% block head_misc_extra %}{% endblock head_misc_extra %}
+
 {% endblock head_includes %}
 
 {% block bare_content %}
 <div id="all_content">
-  <h2>aboinga.com</h2>
+  <h2 class="content_title">{% block content_title %}aboinga.com{% endblock content_title %}</h2>
+
   <div id="content">
     {% block content %}{% endblock content %}
   </div><!-- #content -->
