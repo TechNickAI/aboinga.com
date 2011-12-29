@@ -13,7 +13,7 @@ var home = function() {
         cont.fadeIn();
     };
 
-    var fetchMoments = function() {
+    window.fetchMoments = function() {
 	    jQuery("#moments").fadeOut().empty();
         window.moments.fetch({
             data: {order_by: "-created_at", format: "json"},
@@ -21,5 +21,5 @@ var home = function() {
         });
     };
 
-    fetchMoments();
+    window.fetchMoments();
 };

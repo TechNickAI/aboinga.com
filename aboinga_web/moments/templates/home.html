@@ -3,15 +3,41 @@
 
 {% block content %}
 <div id="momentContainer">
+  <div id="uploadContainer">
+    <input id="fileupload" type="file" name="files[]" multiple="true"/>
+    <script src="http://upload.aboinga.com/vendor/jquery.ui.widget.js"></script>
+    <script src="http://upload.aboinga.com/jquery.fileupload.js"></script>
+    <script>
+    $(function () {
+	$('#fileupload').fileupload({
+	    dataType: 'json',
+	    url: 'http://upload.aboinga.com/php/index.php',
+	    limitConcurrentUploads: 2,
+	    limitMultiFileUploads: 4,
+	    done: function (e, data) {
+		$.each(data.result, function (index, file) {
+		    $.ajax({
+			type: 'POST',
+			url: "/api/v1/moment/upload/",
+			data: { "file": file.name },
+			success: window.fetchMoments
+		    });
+		});
+	    }
+	});
+    });
+    </script>
+  </div><!-- #uploadContainer -->
+
   <div id="momentHeader">Recent moments</div>
   <div id="moments"></div>
-</div><!-- #feed -->
+</div><!-- #momentContainer -->
 
 {% verbatim %}
 <script id="momentSummary" type="text/html">
 <li class="moment" data-id="{{id}}">
 	<img src="{{ photo }}"/><br />
-	Uploaded <span title="{{creatd_at}}">{{ created_at_ago }}</span><br />
+	Uploaded <span title="{{created_at}}">{{ created_at_ago }}</span><br />
 	[ <a class="flag">Flag</a> ]
 </li>
 </script>
