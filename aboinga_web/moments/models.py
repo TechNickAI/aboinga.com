@@ -26,7 +26,7 @@ class Moment(models.Model):
     # Override delete to remove the file
     def delete(self, *args, **kwargs):
         photofile = self.photo.path
-        super(Moment, self).save(*args, **kwargs) # Call the "real" delete() method.
+        super(Moment, self).delete(*args, **kwargs) # Call the "real" delete() method.
         os.remove(photofile)
 
     def get_absolute_url(self):
