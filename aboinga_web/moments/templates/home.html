@@ -25,16 +25,17 @@
 			type: 'POST',
 			url: "/api/v1/moment/upload/",
 			data: { "file": file.name },
-			success: window.fetchMoments
+			success: function(data) {
+				var newMoment = $(ich.momentSummary(data)).hide();
+				jQuery("#moments").prepend(newMoment);
+				newMoment.fadeIn("slow");
+			}
 		    });
 		});
 	    },
             // Callback for global upload progress events:
             progressall: function (e, data) {
-                $('.fileupload-progressbar div').css(
-                    'width',
-                    parseInt(data.loaded / data.total * 100, 10) + '%'
-                );
+                $('.fileupload-progressbar div').css('width', parseInt(data.loaded / data.total * 100, 10) + '%');
 	    },
             // Callback for uploads start, equivalent to the global ajaxStart event:
             start: function () {
@@ -44,8 +45,7 @@
             // Callback for uploads stop, equivalent to the global ajaxStop event:
             stop: function () {
                 $('.fileupload-progressbar').fadeOut()
-            },
-            
+            }
 	});
     });
     </script>

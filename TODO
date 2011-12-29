@@ -18,7 +18,7 @@ Webapp
 			X) Backbone interacting with api
 		X) Uploader
 			X) html 5 drag and drop
-			) Progress bar
+			X) Progress bar
 		) UI flow
 		) Super user delete
 		) Super user rotate

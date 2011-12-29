@@ -10,11 +10,11 @@ var home = function() {
             // Why is icanhaz returning an array of jquery objects?!
 		    cont.find("ul").append(window.ich.momentSummary(m));
 	    }
-        cont.fadeIn();
+        cont.show();
     };
 
     window.fetchMoments = function() {
-	    jQuery("#moments").fadeOut().empty();
+	    jQuery("#moments").empty();
         window.moments.fetch({
             data: {order_by: "-created_at", format: "json"},
             success: renderMoments
