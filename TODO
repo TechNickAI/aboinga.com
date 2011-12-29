@@ -19,8 +19,8 @@ Webapp
 		X) Uploader
 			X) html 5 drag and drop
 			X) Progress bar
-		) UI flow
-		) Super user delete
+		X) UI flow
+		X) Super user delete
 		) Super user rotate
 		) Auto? Rotation
 		http://www.blog.pythonlibrary.org/2010/03/28/getting-photo-metadata-exif-using-python/
@@ -39,7 +39,8 @@ Webapp
 		) Copy
 
 	App ready
-		) Capture upload IP. Through varnish/cdns
+		) Prevent self rating
+		X) Capture upload IP. Through varnish/cdns
 		) Unit tests
 		X) Separate dev env
 		) Logo

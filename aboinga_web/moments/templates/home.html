@@ -59,7 +59,7 @@
 {% verbatim %}
 <script id="momentSummary" type="text/html">
 <li class="moment" id="moment_{{id}}" >
-	<img class="photo" src="{{ photo }}"/><br />
+	<a href="{{permalink}}"><img class="photo" src="{{ photo }}"/></a><br />
 	<div class="uploadedInfo">Uploaded <span title="{{created_at}}">{{ created_at_ago }} by {{upload_ip}}</div>
 	<div class="momentActions">
 	  <img class="action rate" title="Forgettable" data-id="{{id}}" data-rating="1" src="/static/img/rating_star_empty.gif"/>
@@ -75,6 +75,7 @@
 	  &nbsp;
 	  <img class="action flag" title="Flag as inappropriate" data-id="{{id}}" src="/static/img/flag_blue.png">
 	  <img class="action delete" title="Take it down" data-id="{{id}}" src="/static/img/delete.png">
+	  <a href="{{permalink}}"><img title="Permanent Link" data-id="{{id}}" src="/static/img/link.png"></a>
 	</div>
 </li>
 </script>

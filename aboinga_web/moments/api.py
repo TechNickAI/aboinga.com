@@ -32,6 +32,8 @@ class MomentResource(ModelResource):
         bundle.data["updated_at_ago"] = repoze.timeago.get_elapsed(bundle.obj.updated_at)
         bundle.data["expires_in"] = repoze.timeago.get_elapsed(bundle.obj.expires)
 
+        bundle.data["permalink"] = bundle.obj.get_absolute_url()
+
         return bundle
 
     def hydrate(self, bundle):
