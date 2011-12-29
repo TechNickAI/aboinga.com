@@ -5,15 +5,22 @@ import os
 
 ROOT_PATH = os.path.dirname(__file__)
 
+APPEND_SLASH = False
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+     ('Nick Sullivan', 'nick@sullivanflock.com'),
 )
-
 MANAGERS = ADMINS
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': '/var/tmp/django_cache'
+    }
+}
 
 DATABASES = {
     'default': {
@@ -25,6 +32,18 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
+
+# Slightly larger than the default so we don't swap too much
+FILE_UPLOAD_MAX_MEMORY_SIZE = 5621440
+
+# no more intcomma
+NUMBER_GROUPING = 3
+
+# Store the sessions in files, not db
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+
+# Use etags. 
+USE_ETAGS = True
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -148,6 +167,7 @@ LOGGING = {
         },
     }
 }
+
 
 # If there is a file named local_settings.py in this directory, load it.
 try:
