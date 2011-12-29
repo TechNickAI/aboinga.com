@@ -72,7 +72,7 @@ class MomentResource(ModelResource):
             my_moment.public = 0
 
         my_moment.save()
-        os.remove(fullfile)
+      #  os.remove(fullfile)
 
         bundle = self.build_bundle(obj=my_moment, request=request)
         bundle = self.full_dehydrate(bundle)

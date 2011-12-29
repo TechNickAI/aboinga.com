@@ -7,3 +7,5 @@ repoze.timeago==0.5
 
 # Fork of tastypie that supports json indenting
 -e git+git://github.com/krux/django-tastypie.git#egg=django-tastypie
+
+django-compressor=1.1.1

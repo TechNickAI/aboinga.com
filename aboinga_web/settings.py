@@ -3,12 +3,16 @@ import os
 
 ### Note that we use a local_settings.py for any specific settings that can't be shared
 
+# Toggle settings based on environment
+# export ABOINGA_ENVIRONMENT=dev|stage|prod
+ENVIRONMENT = os.environ.get("ABOINGA_ENVIRONMENT", "dev")
+
 ROOT_PATH = os.path.dirname(__file__)
 
 APPEND_SLASH = False
 
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
+DEBUG = False
+TEMPLATE_DEBUG = False
 
 ADMINS = (
      ('Nick Sullivan', 'nick@sullivanflock.com'),
@@ -110,7 +114,13 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'compressor.finders.CompressorFinder'
 )
+
+# COMPRESS settings
+# http://django_compressor.readthedocs.org/en/latest/settings/
+# Use this to force it on for dev. default is the opposite of DEBUG
+# COMPRESS_ENABLED = True
 
 
 # List of callables that know how to import templates from various sources.
@@ -146,7 +156,8 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'moments',
     'south',
-    'tastypie'
+    'tastypie',
+    'compressor'
 )
 
 # A sample logging configuration. The only tangible logging
@@ -171,6 +182,11 @@ LOGGING = {
         },
     }
 }
+
+# Toggle settings based on environment
+if ENVIRONMENT == "dev":
+    DEBUG = True
+    TEMPLATE_DEBUG = True
 
 
 # If there is a file named local_settings.py in this directory, load it.
