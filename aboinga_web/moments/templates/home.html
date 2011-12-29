@@ -4,6 +4,7 @@
 {% block content %}
 <div id="momentContainer">
   <div id="uploadContainer">
+    Upload yours. Browse or Drag n' Drop.<br />
     <input id="fileupload" type="file" name="files[]" multiple="true"/>
     <script src="http://upload.aboinga.com/vendor/jquery.ui.widget.js"></script>
     <script src="http://upload.aboinga.com/jquery.fileupload.js"></script>
@@ -11,7 +12,7 @@
     $(function () {
 	$('#fileupload').fileupload({
 	    dataType: 'json',
-	    url: 'http://upload.aboinga.com/php/index.php',
+	    url: 'http://upload.aboinga.com/php/',
 	    limitConcurrentUploads: 2,
 	    limitMultiFileUploads: 4,
 	    done: function (e, data) {

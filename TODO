@@ -16,15 +16,20 @@ Webapp
 		X) API
 		X) front end to display recents
 			X) Backbone interacting with api
-		) Uploader
-			) Url
-			) html 5 drag and drop
-			) Unit test
+		X) Uploader
+			X) html 5 drag and drop
+			) Progress bar
 		) UI flow
-		) Styling. Free template from somewhere?
-		) Pagination
+		) Super user delete
+		) Super user rotate
+		) Auto? Rotation
+		http://www.blog.pythonlibrary.org/2010/03/28/getting-photo-metadata-exif-using-python/
 
 	Friends
+		) Same user delete
+		) Same user rotate 
+		) Pagination
+		) Styling. Free template from somewhere?
 		) Rotation
 		) Loading indicator
 		) Points system

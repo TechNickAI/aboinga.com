@@ -17,7 +17,7 @@ class MomentResource(ModelResource):
         # TODO: throttle
         # TODO: filtering
         include_resource_uri = False
-        limit = 100 
+        limit = 25 
         ordering = ['created_at']
         queryset = Moment.objects.all()
         resource_name = 'moment'
