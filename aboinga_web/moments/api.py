@@ -38,11 +38,15 @@ class MomentResource(ModelResource):
         bundle.data["permalink"] = bundle.obj.get_absolute_url()
 
         # Ratings
-        ratings = Rating.objects.filter(moment = bundle.obj.id).aggregate(Avg('stars'), Count('stars'))
-        bundle.data["ratings"] = ratings["stars__count"]
-        bundle.data["avg_rating"] = Decimal(str(ratings["stars__avg"] or 0)) 
-
+        bundle.data.update(self._get_ratings(bundle.obj))
         return bundle
+
+    def _get_ratings(self, moment): 
+        ratings = Rating.objects.filter(moment = moment).aggregate(Avg('stars'), Count('stars'))
+        return {
+            "ratings": ratings["stars__count"],
+            "avg_rating": Decimal(str(ratings["stars__avg"] or 0)) 
+        }
 
     def hydrate(self, bundle):
         # Set the upload_ip
@@ -51,6 +55,7 @@ class MomentResource(ModelResource):
     def override_urls(self):
         return [
             url(r"^(?P<resource_name>%s)/upload%s$" % (self._meta.resource_name, trailing_slash()), self.wrap_view('api_upload'), name="api_upload"),
+            url(r"^(?P<resource_name>%s)/slot_machine%s$" % (self._meta.resource_name, trailing_slash()), self.wrap_view('api_slot_machine'), name="api_slot_machine"),
         ]
 
     def api_upload(self, request, **kwargs):
@@ -80,10 +85,45 @@ class MomentResource(ModelResource):
             my_moment.public = 0
 
         my_moment.save()
-      #  os.remove(fullfile)
+        os.remove(fullfile)
 
         bundle = self.build_bundle(obj=my_moment, request=request)
         bundle = self.full_dehydrate(bundle)
+        return self.create_response(request, bundle)
+
+
+    def api_slot_machine(self, request, **kwargs):
+        self.method_check(request, allowed=['post', 'get'])
+
+        if request.method == "POST":
+            # They rated a previous one
+            moment_id = request.POST.get("moment_id", "")
+            rated_moment = Moment.objects.filter(pk = moment_id)
+            if len(rated_moment) == 0:
+                return self.create_response(request, {'success': False, 'msg': 'Invalid moment_id: %s' % moment_id}, response_class=HttpResponseBadRequest)
+            try:
+                stars = int(request.POST.get("stars", 0))
+                assert(stars >= 1)
+                assert(stars <= 10)
+            except:
+                return self.create_response(request, {'success': False, 'msg': 'Invalid stars (1-10): %s' % stars}, response_class=HttpResponseBadRequest)
+
+            rating = Rating(moment = rated_moment[0], upload_ip = get_real_ip(request), stars = stars)
+            rating.save()
+
+            # Get the ratings for the supplied moment
+            meta = self._get_ratings(rated_moment)
+            exclude_id = rated_moment[0].id
+        else:
+            meta = {}
+            exclude_id = -1
+
+        # Pull one randomly, exclude the one they just saw. 
+        # TODO more intelligent mechanism to exclude the ones they've already rated
+        random_moment = Moment.objects.exclude(pk = exclude_id).order_by('?')[:1]
+        bundle = self.build_bundle(obj=random_moment[0], request=request)
+        bundle = self.full_dehydrate(bundle)
+        bundle.data["previous_results"] = meta
         return self.create_response(request, bundle)
 
 
