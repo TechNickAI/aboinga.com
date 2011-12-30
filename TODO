@@ -22,10 +22,11 @@ Webapp
 		X) UI flow
 		X) Super user delete
 		) Super user rotate
-		) Auto? Rotation
+		X) Auto? Rotation
 		http://www.blog.pythonlibrary.org/2010/03/28/getting-photo-metadata-exif-using-python/
 
 	Friends
+		) Special priveledges for self uploaded images
 		) Same user delete
 		) Same user rotate 
 		) Pagination
@@ -39,7 +40,11 @@ Webapp
 		) Copy
 
 	App ready
-		) Prevent self rating
+		) Mechanism to deal with flags
+		) Pretty graphics on rating stars
+		) Prevent self/duplicate rating
+			) Client side?
+		) Delete should be superuser only
 		X) Capture upload IP. Through varnish/cdns
 		) Unit tests
 		X) Separate dev env
@@ -65,6 +70,7 @@ Webapp
 		) Custom slugs/urls 
 
 	Someday
+		) Admin to handle ratings/flags
 		) Geo targeting for "near xxx"
 		) Smarter slugifyier
 		) Image editing

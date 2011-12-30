@@ -1,6 +1,8 @@
-from aboinga_web.moments.models import Moment
+from aboinga_web.moments.models import Moment, Rating
+from decimal import Decimal, getcontext 
 from django.conf.urls.defaults import url
 from django.core.files import File
+from django.db.models import Avg, Count
 from django.http import HttpResponseBadRequest
 from tastypie.api import Api
 from tastypie.authorization import Authorization
@@ -12,6 +14,7 @@ import repoze.timeago
 
 UPLOADED_FILES_DIR = "/var/www/aboinga.com/upload/php/files"
 repoze.timeago._NOW = datetime.datetime.now
+getcontext().prec = 2
 
 class MomentResource(ModelResource):
 
@@ -33,6 +36,11 @@ class MomentResource(ModelResource):
         bundle.data["expires_in"] = repoze.timeago.get_elapsed(bundle.obj.expires)
 
         bundle.data["permalink"] = bundle.obj.get_absolute_url()
+
+        # Ratings
+        ratings = Rating.objects.filter(moment = bundle.obj.id).aggregate(Avg('stars'), Count('stars'))
+        bundle.data["ratings"] = ratings["stars__count"]
+        bundle.data["avg_rating"] = Decimal(str(ratings["stars__avg"] or 0)) 
 
         return bundle
 

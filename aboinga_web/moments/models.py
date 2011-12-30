@@ -8,7 +8,7 @@ class Moment(models.Model):
     slug = models.SlugField(max_length = 255, db_index = True, unique = True, blank = True)
     photo = models.FileField(upload_to = 'moments')
     upload_ip = models.IPAddressField(null = True, blank = True)
-    created_at = models.DateTimeField(auto_now_add = True, db_index = True)
+    created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now_add = True, auto_now = True)
     expires = models.DateTimeField(null = True, blank = True)
     public = models.BooleanField(default = True)
@@ -51,3 +51,29 @@ class Moment(models.Model):
 
     class Meta:
         db_table = 'moments'
+
+
+class Rating(models.Model):
+    moment = models.ForeignKey(Moment)
+    stars = models.SmallIntegerField()
+    upload_ip = models.IPAddressField(null = True, blank = True)
+    created_at = models.DateTimeField(auto_now_add = True)
+
+    class Meta:
+        db_table = 'ratings'
+
+
+class Flag(models.Model):
+    FLAG_CHOICES = (
+        ('rotation', 'Rotated'),
+        ('nasty', 'Nasty'),
+        ('spam', 'Spam'),
+        ('nsfw', '18+'),
+    )
+    moment = models.ForeignKey(Moment)
+    name = models.CharField(max_length = 25, choices = FLAG_CHOICES)
+    upload_ip = models.IPAddressField(null = True, blank = True)
+    created_at = models.DateTimeField(auto_now_add = True)
+
+    class Meta:
+        db_table = 'flags'
