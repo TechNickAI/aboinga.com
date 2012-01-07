@@ -11,8 +11,8 @@ ROOT_PATH = os.path.dirname(__file__)
 
 APPEND_SLASH = False
 
-DEBUG = True
-TEMPLATE_DEBUG = True
+DEBUG = False
+TEMPLATE_DEBUG = False
 
 ADMINS = (
      ('Nick Sullivan', 'nick@sullivanflock.com'),
