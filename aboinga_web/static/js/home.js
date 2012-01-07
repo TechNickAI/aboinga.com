@@ -30,6 +30,7 @@ window.setupMomentHandlers = function(container) {
                 window.setTimeout(function() {
                     $("#moment_" + img.attr("data-id")).remove();
                 }, 950);
+                $(window).trigger("aboinga:delete");
             }
         });
     });
@@ -52,17 +53,21 @@ window.setupMomentHandlers = function(container) {
             },
             success: function(data) {
                 $("#moment_" + img.attr("data-id")).fadeOut();
-                window.newMoment(data);
+                window.newMoment(data, false);
                 $("#status").html("Thanks for rating! Other people think it is " + data.previous_results.avg_rating + '(' + data.previous_results.ratings + ')');
+                $(window).trigger("aboinga:rate", stars);
             }
         });
     });
 };
 
-window.newMoment = function(data) {
+window.newMoment = function(data, first) {
     var newMoment = $(window.ich.momentSummary(data)).hide();
     jQuery("#moments").prepend(newMoment);
     window.setupMomentHandlers(newMoment);
+    if (! first) {
+        $(window).trigger("aboinga:new_moment");
+    }
     newMoment.fadeIn(900);
 };
 
@@ -79,7 +84,7 @@ $("#status").html("Loading...").show().delay(1500).fadeOut();
 $.ajax({
     url: window.Moments.url() + 'slot_machine',
     success: function(data) {
-        window.newMoment(data);
+        window.newMoment(data, true);
         $("#status").hide();
     }
 });
@@ -92,6 +97,7 @@ $(function () {
         limitMultiFileUploads: 4,
         done: function (e, data) {
             $.each(data.result, function (index, file) {
+                $(window).trigger("aboinga:uploaded_file", jQuery("input[name=expires_at]:checked").val(), jQuery("input[name=public]:checked").val());
                 $.ajax({
                     type: 'POST',
                     url: "/api/v1/moment/upload/",
@@ -112,6 +118,7 @@ $(function () {
         },
         // Callback for uploads start, equivalent to the global ajaxStart event:
         start: function () {
+            $(window).trigger("aboinga:start_uplaod");
             $('.fileupload-progressbar div').css('width', '0%');
             $('.fileupload-progressbar').fadeIn();
         },
