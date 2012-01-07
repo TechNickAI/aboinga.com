@@ -3,3 +3,5 @@ Files for aboinga.com website and iPhone app.
 Feel free to fork. I'd love to see pull requests.
 
 Sensitive settings for the django app are in local_settings.py.
+
+If you want to override templates, put them in ROOT_PATH + custom_templates
