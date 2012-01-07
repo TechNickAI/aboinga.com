@@ -113,14 +113,15 @@ class MomentResource(ModelResource):
 
             # Get the ratings for the supplied moment
             meta = self._get_ratings(rated_moment)
-            exclude_id = rated_moment[0].id
         else:
             meta = {}
-            exclude_id = -1
 
-        # Pull one randomly, exclude the one they just saw. 
-        # TODO more intelligent mechanism to exclude the ones they've already rated
-        random_moment = Moment.objects.exclude(pk = exclude_id).order_by('?')[:1]
+        # Pull one randomly, exclude what they've rated
+        existing_ratings = Rating.objects.filter(upload_ip = get_real_ip(request)).values_list("moment_id", flat = True)
+        random_moment = Moment.objects.exclude(pk__in = existing_ratings).order_by('?')[:1]
+        if len(random_moment) == 0:
+            return self.create_response(request, {'success': False, 'code': 'allseen'})
+            
         bundle = self.build_bundle(obj=random_moment[0], request=request)
         bundle = self.full_dehydrate(bundle)
         bundle.data["previous_results"] = meta

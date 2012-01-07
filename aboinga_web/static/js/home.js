@@ -61,13 +61,18 @@ window.setupMomentHandlers = function(container) {
 };
 
 window.newMoment = function(data, first) {
-    var newMoment = $(window.ich.momentSummary(data)).hide("clip");
-    jQuery("#moments").prepend(newMoment);
-    window.setupMomentHandlers(newMoment);
+    console.log(data);
+    if (data.code && data.code === "allseen") {
+        jQuery("#moments").html("You've rated all the pictures. Want to upload some for everyone else?<br /><br />");
+        return;
+    }
+    var moment = $(window.ich.momentSummary(data)).hide("clip");
+    jQuery("#moments").prepend(moment);
+    window.setupMomentHandlers(moment);
     if (! first) {
         $(window).trigger("aboinga:new_moment");
     }
-    newMoment.show("clip", "slow");
+    moment.show("clip", "slow");
 };
 
 window.fetchMoments = function() {
