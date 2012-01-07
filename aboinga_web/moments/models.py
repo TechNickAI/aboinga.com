@@ -8,6 +8,7 @@ class Moment(models.Model):
     slug = models.SlugField(max_length = 255, db_index = True, unique = True, blank = True)
     photo = models.FileField(upload_to = 'moments')
     upload_ip = models.IPAddressField(null = True, blank = True)
+    photo_md5 = models.CharField(max_length = 32, db_index = True, blank = True, unique = True, null = True)
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now_add = True, auto_now = True)
     expires = models.DateTimeField(null = True, blank = True)
@@ -16,9 +17,12 @@ class Moment(models.Model):
     # Override save for some magic
     def save(self, force_insert=False, force_update=False, using=None):
         
+        if self.photo_md5 is None or len(self.photo_md5) == 0:
+            self.photo_md5 = md5(self.photo.read()).hexdigest()
+
         # Auto create the slug if it's empty    
         if self.slug is None or len(self.slug) == 0:
-            self.slug = Moment.generate_uniq_slug(self.photo.read())
+            self.slug = self.generate_uniq_slug()
         
         # Will the real save please stand up?
         super(Moment, self).save()
@@ -38,14 +42,11 @@ class Moment(models.Model):
     def __unicode__(self):
         return '%s - (%s)' % (self.slug, self.photo.name)
 
-    @staticmethod 
-    def generate_uniq_slug(data):
-        myslug = md5(data).hexdigest()
-
+    def generate_uniq_slug(self):
         # In an effort to keep the url as small as possible, we start with smaller string
         # and keep trying until we find one that's unique
-        for l in range (6, len(myslug) + 1):
-            slugtry  = myslug[0:l]
+        for l in range (6, len(self.photo_md5) + 1):
+            slugtry  = self.photo_md5[0:l]
             if not Moment.objects.filter(slug = slugtry).count():
                 return slugtry
 
