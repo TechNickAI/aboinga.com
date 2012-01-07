@@ -43,7 +43,6 @@ window.setupMomentHandlers = function(container) {
             // Safety net
             return;
         }
-        $("#status").html("Sending your rating...").show();
         $.ajax({
             url: window.Moments.url() + 'slot_machine',
             type: 'POST',
@@ -54,7 +53,7 @@ window.setupMomentHandlers = function(container) {
             success: function(data) {
                 $("#moment_" + img.attr("data-id")).fadeOut();
                 window.newMoment(data, false);
-                $("#status").html("Thanks for rating! Other people think it is " + data.previous_results.avg_rating + '(' + data.previous_results.ratings + ')');
+                $.jGrowl("Thanks for rating! Other people think it is <b>" + data.previous_results.avg_rating + '</b> (' + data.previous_results.ratings + ')');
                 $(window).trigger("aboinga:rate", stars);
             }
         });
@@ -62,13 +61,13 @@ window.setupMomentHandlers = function(container) {
 };
 
 window.newMoment = function(data, first) {
-    var newMoment = $(window.ich.momentSummary(data)).hide();
+    var newMoment = $(window.ich.momentSummary(data)).hide("clip");
     jQuery("#moments").prepend(newMoment);
     window.setupMomentHandlers(newMoment);
     if (! first) {
         $(window).trigger("aboinga:new_moment");
     }
-    newMoment.fadeIn(900);
+    newMoment.show("clip", "slow");
 };
 
 window.fetchMoments = function() {
@@ -80,12 +79,10 @@ window.fetchMoments = function() {
 };
 
 // Pull in the first one
-$("#status").html("Loading...").show().delay(1500).fadeOut();
 $.ajax({
     url: window.Moments.url() + 'slot_machine',
     success: function(data) {
         window.newMoment(data, true);
-        $("#status").hide();
     }
 });
 
@@ -107,7 +104,7 @@ $(function () {
                     },
                     success: function(data) {
                             window.newMoment(data);
-                            $("#status").html("Thanks for uploading. You are awesome!").show().delay(1500).fadeOut();
+                            $.jGrowl("Thanks for uploading. You are awesome!");
                     }
                 });
             });

@@ -5,19 +5,17 @@ body {
 	font-family: helvetica,arial, verdana, 'Sans Serif';
 	padding: 10px;
 }
+.momentContainer {
+	width: 500px;
+}
 
 .moment {
 	width: 500px;
-	margin-bottom: 20px;
+	margin-bottom: 30px;
 }
 
 .moment img.photo {
 	width: 500px;
-}
-
-#uploadContainer {
-	float: right;
-	width: 400px;
 }
 
 .moment .uploadedInfo {

@@ -1,15 +1,20 @@
 {% extends 'base.html' %}
 {% load verbatim %}
+{% load compress %}
 
 {% block content %}
 <link rel="stylesheet" href="http://upload.aboinga.com/jquery.fileupload-ui.css">
+<div id="status" style="display:none"></div>
 <div id="momentContainer">
+  <div id="momentHeader"></div>
+  <div id="moments"></div>
   <div id="uploadContainer">
-    Browse or Drag n' Drop.<br />
+    Upload your embarassing pictures to be rated. Browse or Drag n' Drop.<br />
     <input id="fileupload" type="file" name="files[]" multiple="true"/>
     <div class="fileupload-buttonbar">
 	<div class="progressbar fileupload-progressbar" style="display:none"><div style="width:0%;"></div></div>
     </div>
+    <!--
     Visible to:<br />
     <input type="radio" name="public" value="1" checked="true"/>Everyone
     <input type="radio" name="public" value="0"/>Only people who know the url
@@ -20,19 +25,15 @@
     <input type="radio" name="expires_at" value="1 day"/>a day
     <input type="radio" name="expires_at" value="1 week"/>a week
     <input type="radio" name="expires_at" value="1 month"/>a month
+    -->
 
-    <div id="status" style="display:none"></div>
   </div><!-- #uploadContainer -->
 
-  <div id="momentHeader"></div>
-  <div id="moments"></div>
 </div><!-- #momentContainer -->
 
 {% verbatim %}
 <script id="momentSummary" type="text/html">
 <li class="moment" id="moment_{{id}}" >
-	<a href="{{permalink}}"><img class="photo" src="{{ photo }}"/></a><br />
-	<div class="uploadedInfo">Uploaded <span title="{{created_at}}">{{ created_at_ago }} by {{upload_ip}}</div>
 	<div class="momentActions">
 	  <img class="action rate" title="Forgettable" data-id="{{id}}" data-rating="1" src="/static/img/rating_star_empty.gif"/>
 	  <img class="action rate" title="Inconsequential" data-id="{{id}}" data-rating="2" src="/static/img/rating_star_empty.gif"/>
@@ -49,11 +50,15 @@
 	  <img class="action delete" title="Take it down" data-id="{{id}}" src="/static/img/delete.png">
 	  <a href="{{permalink}}"><img title="Permanent Link" data-id="{{id}}" src="/static/img/link.png"></a>
 	</div>
+	<a href="{{permalink}}"><img class="photo" src="{{ photo }}"/></a><br />
+	<div class="uploadedInfo">Uploaded <span title="{{created_at}}">{{ created_at_ago }} by {{upload_ip}}</div>
 </li>
 </script>
 {% endverbatim %}
 <script src="http://upload.aboinga.com/vendor/jquery.ui.widget.js"></script>
 <script src="http://upload.aboinga.com/jquery.fileupload.js"></script>
+{% compress js %}
 <script src="/static/js/home.js"></script>
+{% endcompress %}
 
 {% endblock content %}

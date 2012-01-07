@@ -23,21 +23,18 @@ Webapp
 		X) Super user delete
 		) Super user rotate
 		X) Auto? Rotation
-		http://www.blog.pythonlibrary.org/2010/03/28/getting-photo-metadata-exif-using-python/
 
 	Friends
 		) Special priveledges for self uploaded images
 		) Same user delete
 		) Same user rotate 
-		) Pagination
 		) Styling. Free template from somewhere?
 		) Rotation
-		) Loading indicator
 		) Points system
 		) "Take this down" flagging
 		) Email notification on new events. Django notification?
-		) Google Analytics
-		) Copy
+		X) Google Analytics
+		) Explanatory Text
 
 	App ready
 		) Mechanism to deal with flags
