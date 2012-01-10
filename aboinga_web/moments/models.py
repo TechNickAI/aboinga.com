@@ -78,3 +78,12 @@ class Flag(models.Model):
 
     class Meta:
         db_table = 'flags'
+
+class Caption(models.Model):
+    moment = models.ForeignKey(Moment)
+    text = models.CharField(max_length = 255)
+    upload_ip = models.IPAddressField(null = True, blank = True)
+    created_at = models.DateTimeField(auto_now_add = True)
+
+    class Meta:
+        db_table = 'captions'
