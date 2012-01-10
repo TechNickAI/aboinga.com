@@ -12,7 +12,7 @@ var HomeRouter = window.Backbone.Router.extend({
             url: window.Moments.url() + '?slug=' + escape(slug),
             success: function(data) {
                 var moment = window.setupMoment(data.objects[0]);
-                jQuery("#moments").append(moment);
+                jQuery("#moments").empty().append(moment);
                 moment.show("clip", "slow");
             }
         });
@@ -75,12 +75,26 @@ window.setupMomentHandlers = function(container) {
     });
 
     // Caption
-    container.find(".newCaption input").blur(function() {
-        var text = $.trim($(this).val());
+    container.find(".newCaption input").blur(submitCaption).bind("keypress", function(e) {
+        var code = (e.keyCode ? e.keyCode : e.which);
+        if (code == 13) { //Enter keycode
+            submitCaption(e);
+        }
+    });
+
+    var submittedCaptions = [];
+    function submitCaption(e) {
+        var target = (e.currentTarget) ? e.currentTarget : e.srcElement;
+        var text = $.trim($(target).val());
         if (! text ) {
             return;
         }
-        var caption = {text: text, moment_id: $(this).attr("data-moment-id")};
+        if (submittedCaptions[text]) {
+            // Simple dupe check
+            return;
+        }
+        submittedCaptions[text] = 1;
+        var caption = {text: text, moment_id: $(target).attr("data-moment-id")};
         window.Captions.create(caption, {
             success: function() {
                 $.jGrowl("Thanks for adding a caption!");
@@ -88,7 +102,7 @@ window.setupMomentHandlers = function(container) {
                 $(window).trigger("aboinga:new_caption");
             }
         });
-    });
+    }
 };
 
 window.addCaption = function(container, captions) {
