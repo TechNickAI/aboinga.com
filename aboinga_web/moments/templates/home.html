@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-{% load verbatim %}
 {% load compress %}
+{% load verbatim %}
 
 {% block content %}
 <link rel="stylesheet" href="http://upload.aboinga.com/jquery.fileupload-ui.css">
@@ -32,7 +32,7 @@
 </div><!-- #momentContainer -->
 
 {% verbatim %}
-<script id="momentSummary" type="text/html">
+<script id="momentSummaryTemplate" type="text/html">
 <li class="moment" id="moment_{{id}}" >
 	<div class="momentActions">
 	  <img class="action rate" title="Forgettable" data-id="{{id}}" data-rating="1" src="/static/img/rating_star_empty.gif"/>
@@ -52,7 +52,19 @@
 	</div>
 	<a href="{{permalink}}"><img class="photo" src="{{ photo }}"/></a><br />
 	<div class="uploadedInfo">Uploaded <span title="{{created_at}}">{{ created_at_ago }} by {{upload_ip}}</div>
+
+	<div class="newCaption" style="clear:both">
+        <input data-moment-id="{{id}}" type="text" placeholder="Caption this picture..." style="width: 250px;"/>
+    </div>
+
+	<div class="momentCaptions"></div>
 </li>
+</script>
+
+<script id="momentCaptionTemplate" type="text/html">
+	<div class="momentCaption">
+        <h3>{{text}}</h3>
+    </div>
 </script>
 {% endverbatim %}
 <script src="http://upload.aboinga.com/vendor/jquery.ui.widget.js"></script>

@@ -1,20 +1,11 @@
 // Doesn't strictly need to be global, but handy for debugging
 window.Moments = new window.MomentCollection();
-
-window.renderMoments = function() {
-    var cont = jQuery("#moments").append("<ul>");
-    for (var i = 0; i < window.Moments.models.length; i++ ){
-        var m = window.Moments.models[i].attributes;
-        // Why is icanhaz returning an array of jquery objects?!
-        cont.find("ul").append(window.ich.momentSummary(m));
-    }
-    // Set up the handlers
-    window.setupMomentHandlers(cont);
-    cont.show();
-};
+window.Captions = new window.CaptionCollection();
 
 window.setupMomentHandlers = function(container) {
-    // Set up the handlers
+    //// Set up the handlers
+
+    // Delete
     container.find("img.delete").click(function() {
         var img = $(this);
         var id = img.attr("data-id");
@@ -35,6 +26,7 @@ window.setupMomentHandlers = function(container) {
         });
     });
 
+    // Ratings
     container.find("img.rate").click(function() {
         var img = $(this);
         var id = img.attr("data-id");
@@ -58,29 +50,44 @@ window.setupMomentHandlers = function(container) {
             }
         });
     });
+
+    // Caption
+    container.find(".newCaption input").blur(function() {
+        var text = $.trim($(this).val());
+        if (! text ) {
+            return;
+        }
+        var caption = {text: text, moment_id: $(this).attr("data-moment-id")};
+        window.Captions.create(caption, {
+            success: function() {
+                $.jGrowl("Thanks for adding a caption!");
+                container.find(".momentCaptions").append(window.ich.momentCaptionTemplate(caption));
+                $(window).trigger("aboinga:new_caption");
+            }
+        });
+    });
+};
+
+window.addCaptions = function(container, captions) {
+    for (var i = 0; i < captions.length; i++) {
+        container.find(".momentCaptions").append(window.ich.momentCaptionTemplate(captions[i]));
+    }
+    return i;
 };
 
 window.newMoment = function(data, first) {
-    console.log(data);
     if (data.code && data.code === "allseen") {
         jQuery("#moments").html("You've rated all the pictures. Want to upload some for everyone else?<br /><br />");
         return;
     }
-    var moment = $(window.ich.momentSummary(data)).hide("clip");
+    var moment = $(window.ich.momentSummaryTemplate(data)).hide("clip");
+    window.addCaptions(moment, data.captions);
     jQuery("#moments").prepend(moment);
     window.setupMomentHandlers(moment);
     if (! first) {
         $(window).trigger("aboinga:new_moment");
     }
     moment.show("clip", "slow");
-};
-
-window.fetchMoments = function() {
-    jQuery("#moments").empty();
-    window.Moments.fetch({
-        data: {order_by: "-created_at", format: "json"},
-        success: window.renderMoments
-    });
 };
 
 // Pull in the first one

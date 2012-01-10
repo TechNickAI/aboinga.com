@@ -1,5 +1,5 @@
-from aboinga_web.moments.models import Moment, Rating
-from decimal import Decimal, getcontext 
+from aboinga_web.moments.models import Caption, Moment, Rating
+from decimal import Decimal, getcontext
 from django.conf.urls.defaults import url
 from django.core.files import File
 from django.db.models import Avg, Count
@@ -8,6 +8,7 @@ from tastypie.api import Api
 from tastypie.authorization import Authorization
 from tastypie.resources import ModelResource
 from tastypie.utils import trailing_slash
+from utils import get_real_ip
 import datetime
 import os
 import repoze.timeago
@@ -15,6 +16,7 @@ import repoze.timeago
 UPLOADED_FILES_DIR = "/var/www/aboinga.com/upload/php/files"
 repoze.timeago._NOW = datetime.datetime.now
 getcontext().prec = 2
+
 
 class MomentResource(ModelResource):
 
@@ -24,7 +26,7 @@ class MomentResource(ModelResource):
         # TODO: filtering
         authorization = Authorization()
         include_resource_uri = False
-        limit = 25 
+        limit = 25
         ordering = ['created_at']
         queryset = Moment.objects.all()
         resource_name = 'moment'
@@ -39,14 +41,23 @@ class MomentResource(ModelResource):
 
         # Ratings
         bundle.data.update(self._get_ratings(bundle.obj))
+
+        # Captions
+        bundle.data.update(self._get_captions(bundle.obj))
         return bundle
 
-    def _get_ratings(self, moment): 
+    def _get_ratings(self, moment):
         ratings = Rating.objects.filter(moment = moment).aggregate(Avg('stars'), Count('stars'))
         return {
             "ratings": ratings["stars__count"],
-            "avg_rating": Decimal(str(ratings["stars__avg"] or 0)) 
+            "avg_rating": Decimal(str(ratings["stars__avg"] or 0))
         }
+
+    def _get_captions(self, moment):
+        out = []
+        for caption in Caption.objects.filter(moment = moment).order_by("-created_at"):
+            out.append[{"text": caption.text, "created_at": caption.created_at}]
+        return {"captions": out}
 
     def hydrate(self, bundle):
         # Set the upload_ip
@@ -121,26 +132,39 @@ class MomentResource(ModelResource):
         random_moment = Moment.objects.exclude(pk__in = existing_ratings).order_by('?')[:1]
         if len(random_moment) == 0:
             return self.create_response(request, {'success': False, 'code': 'allseen'})
-            
+
         bundle = self.build_bundle(obj=random_moment[0], request=request)
         bundle = self.full_dehydrate(bundle)
         bundle.data["previous_results"] = meta
         return self.create_response(request, bundle)
 
+class CaptionResource(ModelResource):
 
-def get_real_ip(request):
-    """ Get the IP from the proxy (varnish, cdn) if one is used"""
-    if "HTTP_X_FORWARDED_FOR" in request.META:
-        # multiple proxies, take the first one
-        if ',' in request.META["HTTP_X_FORWARDED_FOR"]:
-            parts = request.META["HTTP_X_FORWARDED_FOR"].split(',')
-            return parts[0].strip()
-        else:
-            return request.META["HTTP_X_FORWARDED_FOR"]
-    else:
-        return request.META["REMOTE_ADDR"]
+    def hydrate(self, bundle):
+        # populate the moment
+        bundle.obj.moment = Moment.objects.get(pk = bundle.data.get("moment_id", -1))
+        # Auto populate the upload_ip
+        bundle.obj.upload_ip = get_real_ip(bundle.request)
+        return bundle
+
+    def dehydrate(self, bundle):
+        # Human readable times
+        bundle.data["created_at_ago"] = repoze.timeago.get_elapsed(bundle.obj.created_at)
+        return bundle
+
+    class Meta:
+        # TODO: cache
+        # TODO: throttle
+        # TODO: filtering
+        authorization = Authorization()
+        include_resource_uri = False
+        limit = 25
+        ordering = ['created_at']
+        queryset = Caption.objects.all()
+        resource_name = 'caption'
 
 
 # This is called from urls.py
 ABOINGA_API = Api(api_name='v1')
 ABOINGA_API.register(MomentResource())
+ABOINGA_API.register(CaptionResource())

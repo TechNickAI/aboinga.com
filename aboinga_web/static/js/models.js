@@ -19,3 +19,21 @@ window.Moment = window.Backbone.Model.extend({
         return data.objects;
     }
 });
+
+window.CaptionCollection = window.Backbone.Collection.extend({
+    url : function() {
+        return window.API_URL + "caption/";
+    },
+    parse: function(data){
+        return data.objects;
+    }
+});
+
+window.CaptionMoment = window.Backbone.Model.extend({
+    url : function() {
+        return window.API_URL + "caption/";
+    },
+    parse: function(data){
+        return data.objects;
+    }
+});
