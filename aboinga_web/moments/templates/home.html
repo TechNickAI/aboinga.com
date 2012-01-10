@@ -34,6 +34,7 @@
 {% verbatim %}
 <script id="momentSummaryTemplate" type="text/html">
 <li class="moment" id="moment_{{id}}" >
+	<div class="momentCaptions"></div>
 	<div class="momentActions">
 	  <img class="action rate" title="Forgettable" data-id="{{id}}" data-rating="1" src="/static/img/rating_star_empty.gif"/>
 	  <img class="action rate" title="Inconsequential" data-id="{{id}}" data-rating="2" src="/static/img/rating_star_empty.gif"/>
@@ -54,10 +55,9 @@
 	<div class="uploadedInfo">Uploaded <span title="{{created_at}}">{{ created_at_ago }} by {{upload_ip}}</div>
 
 	<div class="newCaption" style="clear:both">
-        <input data-moment-id="{{id}}" type="text" placeholder="Caption this picture..." style="width: 250px;"/>
+        <input data-moment-id="{{id}}" maxlength="60" type="text" placeholder="Caption this picture..." style="width: 250px;"/>
     </div>
 
-	<div class="momentCaptions"></div>
 </li>
 </script>
 

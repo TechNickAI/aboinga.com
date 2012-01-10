@@ -1,6 +1,29 @@
 // Doesn't strictly need to be global, but handy for debugging
 window.Moments = new window.MomentCollection();
 window.Captions = new window.CaptionCollection();
+window.cachedMoments = {};
+
+var HomeRouter = window.Backbone.Router.extend({
+    routes: {
+        "/moment/:slug": "pullMoment"
+    },
+    pullMoment: function( slug ){
+        $.ajax({
+            url: window.Moments.url() + '?slug=' + escape(slug),
+            success: function(data) {
+                var moment = window.setupMoment(data.objects[0]);
+                jQuery("#moments").append(moment);
+                moment.show("clip", "slow");
+            }
+        });
+    }
+});
+$(document).ready(function() {
+    var app_router = new window.HomeRouter();
+    // Start Backbone history a neccesary step for bookmarkable URL's
+    window.Backbone.history.start();
+});
+
 
 window.setupMomentHandlers = function(container) {
     //// Set up the handlers
@@ -44,8 +67,8 @@ window.setupMomentHandlers = function(container) {
             },
             success: function(data) {
                 $("#moment_" + img.attr("data-id")).fadeOut();
-                window.newMoment(data, false);
                 $.jGrowl("Thanks for rating! Other people think it is <b>" + data.previous_results.avg_rating + '</b> (' + data.previous_results.ratings + ')');
+                window.slugUrlChange(data.slug);
                 $(window).trigger("aboinga:rate", stars);
             }
         });
@@ -61,18 +84,28 @@ window.setupMomentHandlers = function(container) {
         window.Captions.create(caption, {
             success: function() {
                 $.jGrowl("Thanks for adding a caption!");
-                container.find(".momentCaptions").append(window.ich.momentCaptionTemplate(caption));
+                container.find(".momentCaptions").html(window.ich.momentCaptionTemplate(caption));
                 $(window).trigger("aboinga:new_caption");
             }
         });
     });
 };
 
-window.addCaptions = function(container, captions) {
-    for (var i = 0; i < captions.length; i++) {
-        container.find(".momentCaptions").append(window.ich.momentCaptionTemplate(captions[i]));
+window.addCaption = function(container, captions) {
+    // Pick a random one of the captions
+    if (captions.length === 0) {
+        return 0;
     }
+    var i = Math.floor(Math.random()*captions.length);
+    container.find(".momentCaptions").append(window.ich.momentCaptionTemplate(captions[i]));
     return i;
+};
+
+window.setupMoment = function(data) {
+    var moment = $(window.ich.momentSummaryTemplate(data)).hide();
+    window.addCaption(moment, data.captions);
+    window.setupMomentHandlers(moment);
+    return moment;
 };
 
 window.newMoment = function(data, first) {
@@ -80,23 +113,27 @@ window.newMoment = function(data, first) {
         jQuery("#moments").html("You've rated all the pictures. Want to upload some for everyone else?<br /><br />");
         return;
     }
-    var moment = $(window.ich.momentSummaryTemplate(data)).hide("clip");
-    window.addCaptions(moment, data.captions);
+    var moment = window.setupMoment(data);
     jQuery("#moments").prepend(moment);
-    window.setupMomentHandlers(moment);
     if (! first) {
         $(window).trigger("aboinga:new_moment");
     }
     moment.show("clip", "slow");
 };
 
+window.slugUrlChange = function(slug) {
+    window.location.href = "#/moment/" + slug;
+};
+
 // Pull in the first one
-$.ajax({
-    url: window.Moments.url() + 'slot_machine',
-    success: function(data) {
-        window.newMoment(data, true);
-    }
-});
+if (window.location.hash.indexOf("moment") == -1){
+    $.ajax({
+        url: window.Moments.url() + 'slot_machine',
+        success: function(data) {
+            window.slugUrlChange(data.slug);
+        }
+    });
+}
 
 $(function () {
     $('#fileupload').fileupload({

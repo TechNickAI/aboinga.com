@@ -26,6 +26,7 @@ class MomentResource(ModelResource):
         # TODO: filtering
         authorization = Authorization()
         include_resource_uri = False
+        filtering = {'slug': 'exact'}
         limit = 25
         ordering = ['created_at']
         queryset = Moment.objects.all()
@@ -53,10 +54,11 @@ class MomentResource(ModelResource):
             "avg_rating": Decimal(str(ratings["stars__avg"] or 0))
         }
 
+
     def _get_captions(self, moment):
         out = []
         for caption in Caption.objects.filter(moment = moment).order_by("-created_at"):
-            out.append[{"text": caption.text, "created_at": caption.created_at}]
+            out.append({"text": caption.text, "created_at": caption.created_at})
         return {"captions": out}
 
     def hydrate(self, bundle):
