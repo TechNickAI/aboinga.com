@@ -30,6 +30,9 @@ window.setupMomentHandlers = function(container) {
 
     // Delete
     container.find("img.delete").click(function() {
+        if (! window.confirm ("Delete?") ) {
+            return;
+        }
         var img = $(this);
         var id = img.attr("data-id");
         if (! id) {
