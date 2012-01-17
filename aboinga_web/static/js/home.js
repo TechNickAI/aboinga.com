@@ -28,6 +28,9 @@ $(document).ready(function() {
 window.setupMomentHandlers = function(container) {
     //// Set up the handlers
 
+    // Mouse overs
+    container.find("img[title]").tipTip();
+
     // Delete
     container.find("img.delete").click(function() {
         if (! window.confirm ("Delete?") ) {

@@ -6,6 +6,7 @@
   {% block head_includes_css %}
      {% compress css %}
      <link href="/static/css/jquery.jgrowl.css" rel="stylesheet"/>
+     <link href="/static/css/jquery.tipTip-1.3.css" rel="stylesheet"/>
      <link href="/static/css/my.css" rel="stylesheet"/>
      {% endcompress %}
   {% endblock head_includes_css %}
@@ -19,6 +20,12 @@
   <script src="/static/js/backbone-0.5.3.js"></script>
   <script src="/static/js/ICanHaz-0.9.js"></script>
   <script src="/static/js/jquery.jgrowl-1.2.5.js"/></script>
+  <script src="/static/js/jquery.tipTip-1.3.js"/></script>
+  <script>
+    jQuery(document).ready(function(){
+        jQuery("img[title]").tipTip();
+    });
+  </script>
   <script src="/static/js/my.js"></script>
   <script src="/static/js/models.js"></script>
   {% endcompress %}
