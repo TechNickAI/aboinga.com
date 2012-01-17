@@ -74,6 +74,21 @@ window.setupMomentHandlers = function(container) {
         });
     });
 
+
+    // Next
+    container.find("img.next").click(function() {
+        var img = $(this);
+        var id = img.attr("data-id");
+        $.ajax({
+            url: window.Moments.url() + 'slot_machine',
+            success: function(data) {
+                $("#moment_" + img.attr("data-id")).fadeOut();
+                window.slugUrlChange(data.slug);
+                $(window).trigger("aboinga:next");
+            }
+        });
+    });
+
     // Caption
     container.find(".newCaption input").blur(submitCaption).bind("keypress", function(e) {
         var code = (e.keyCode ? e.keyCode : e.which);
