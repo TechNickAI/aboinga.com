@@ -73,7 +73,7 @@ window.setupMomentHandlers = function(container) {
             },
             success: function(data) {
                 $("#moment_" + img.attr("data-id")).fadeOut();
-                $.jGrowl("Thanks for rating! Other people think it is <b>" + data.previous_results.avg_rating + '</b> (' + data.previous_results.ratings + ')');
+                $.pnotify({"pnotify_title": "Thanks!", "pnotify_text": "Thanks for rating. The overall rating is <b>" + data.previous_results.avg_rating + '</b> (' + data.previous_results.ratings + ')'});
                 window.slugUrlChange(data.slug);
                 $(window).trigger("aboinga:rate", stars);
             }
@@ -118,7 +118,7 @@ window.setupMomentHandlers = function(container) {
         var caption = {text: text, moment_id: $(target).attr("data-moment-id")};
         window.Captions.create(caption, {
             success: function() {
-                $.jGrowl("Thanks for adding a caption!");
+                $.pnotify({pnotify_title: "Thanks", pnotify_text: "Thanks for adding a caption!"});
                 container.find(".momentCaptions").html(window.ich.momentCaptionTemplate(caption));
                 $(window).trigger("aboinga:new_caption");
             }
@@ -188,7 +188,7 @@ $(function () {
                     },
                     success: function(data) {
                             window.newMoment(data);
-                            $.jGrowl("Thanks for uploading. You are awesome!");
+                            $.pnotify({pnotify_title:"Thanks", pnotify_text: "Thanks for uploading. You are awesome!"});
                     }
                 });
             });

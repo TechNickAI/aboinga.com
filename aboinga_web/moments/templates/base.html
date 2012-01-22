@@ -5,8 +5,9 @@
 {% block head_includes %}
   {% block head_includes_css %}
      {% compress css %}
-     <link href="/static/css/jquery.jgrowl.css" rel="stylesheet"/>
+     <link href="/static/css/jquery-ui-1.8.17.custom.css" rel="stylesheet"/>
      <link href="/static/css/jquery.tipTip-1.3.css" rel="stylesheet"/>
+     <link href="/static/css/jquery.pnotify.default.css" rel="stylesheet"/>
      <link href="/static/css/my.css" rel="stylesheet"/>
      {% endcompress %}
   {% endblock head_includes_css %}
@@ -14,13 +15,13 @@
 
   {% block head_includes_js %}
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/jquery-ui.min.js"></script>
   {% compress js %}
   <script src="/static/js/underscore-1.2.3.js"></script>
   <script src="/static/js/backbone-0.5.3.js"></script>
   <script src="/static/js/ICanHaz-0.9.js"></script>
-  <script src="/static/js/jquery.jgrowl-1.2.5.js"/></script>
-  <script src="/static/js/jquery.tipTip-1.3.js"/></script>
+  <script src="/static/js/jquery.tipTip-1.3.js"></script>
+  <script src="/static/js/jquery.pnotify-1.1.0.js"></script>
   <script>
     jQuery(document).ready(function(){
         jQuery("img[title]").tipTip();
