@@ -1,3 +1,4 @@
+
 // Doesn't strictly need to be global, but handy for debugging
 window.Moments = new window.MomentCollection();
 window.Captions = new window.CaptionCollection();
@@ -18,6 +19,8 @@ var HomeRouter = window.Backbone.Router.extend({
         });
     }
 });
+
+
 $(document).ready(function() {
     var app_router = new window.HomeRouter();
     // Start Backbone history a neccesary step for bookmarkable URL's
@@ -25,11 +28,63 @@ $(document).ready(function() {
 });
 
 
+// pnotify set up defaults
+jQuery(document).ready(function() {
+    jQuery.pnotify.defaults.pnotify_delay = 3000;
+    jQuery.pnotify.defaults.pnotify_animation = 'slide';
+    window.hoverTip = $.pnotify({
+        pnotify_title: null,
+        pnotify_text: "",
+        pnotify_hide: false,
+        pnotify_closer: false,
+        pnotify_sticker: false,
+        pnotify_history: false,
+        pnotify_animate_speed: 100,
+        pnotify_opacity: 0.8,
+        pnotify_notice_icon: "",
+        // Setting stack to false causes Pines Notify to ignore this notice when positioning.
+        pnotify_stack: false,
+        pnotify_after_init: function(pnotify) {
+            // Remove the notice if the user mouses over it.
+            pnotify.mouseout(function() {
+                pnotify.pnotify_remove();
+            });
+        },
+        pnotify_before_open: function(pnotify) {
+            // This prevents the notice from displaying when it's created.
+            pnotify.pnotify({
+                pnotify_before_open: null
+            });
+            return false;
+        }
+    });
+
+    window.hoverTips = function(collection) {
+        jQuery.each(collection.not("[data-title]"), function(i, item) {
+            var $item = $(item);
+            $item.attr("data-title", $item.attr("title"));
+            $item.removeAttr("title");
+        });
+        collection.mouseover(function() {
+            window.hoverTip.find(".ui-pnotify-text").html($(this).attr("data-title"));
+            window.hoverTip.pnotify_display();
+        });
+        collection.mouseout(function() {
+            window.hoverTip.pnotify_remove();
+        });
+        collection.mousemove(function(e) {
+            window.hoverTip.css({'top': e.clientY+12, 'left': e.clientX+12});
+        });
+    };
+
+    window.hoverTips(jQuery("img[title]"));
+});
+
 window.setupMomentHandlers = function(container) {
     //// Set up the handlers
 
     // Mouse overs
-    container.find("img[title]").tipTip();
+    window.hoverTips(container.find("img[title]"));
 
     // Delete
     container.find("img.delete").click(function() {

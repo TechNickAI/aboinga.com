@@ -62,7 +62,7 @@
 		pnotify: function(options) {
 			// Stores what is currently being animated (in or out).
 			var animating;
-			
+
 			// Build main options.
 			var opts;
 			if (typeof options != "object") {
