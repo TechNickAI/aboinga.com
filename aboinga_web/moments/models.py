@@ -7,7 +7,7 @@ class Moment(models.Model):
 
     slug = models.SlugField(max_length = 255, db_index = True, unique = True, blank = True)
     photo = models.FileField(upload_to = 'moments')
-    upload_ip = models.IPAddressField(null = True, blank = True)
+    upload_ip = models.IPAddressField(null = True, blank = True, db_index = True)
     photo_md5 = models.CharField(max_length = 32, db_index = True, blank = True, unique = True, null = True)
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now_add = True, auto_now = True)
@@ -16,14 +16,14 @@ class Moment(models.Model):
 
     # Override save for some magic
     def save(self, force_insert=False, force_update=False, using=None):
-        
+
         if self.photo_md5 is None or len(self.photo_md5) == 0:
             self.photo_md5 = md5(self.photo.read()).hexdigest()
 
-        # Auto create the slug if it's empty    
+        # Auto create the slug if it's empty
         if self.slug is None or len(self.slug) == 0:
             self.slug = self.generate_uniq_slug()
-        
+
         # Will the real save please stand up?
         super(Moment, self).save()
 
@@ -57,7 +57,7 @@ class Moment(models.Model):
 class Rating(models.Model):
     moment = models.ForeignKey(Moment)
     stars = models.SmallIntegerField()
-    upload_ip = models.IPAddressField(null = True, blank = True)
+    upload_ip = models.IPAddressField(null = True, blank = True, db_index = True)
     created_at = models.DateTimeField(auto_now_add = True)
 
     class Meta:
@@ -73,7 +73,7 @@ class Flag(models.Model):
     )
     moment = models.ForeignKey(Moment)
     name = models.CharField(max_length = 25, choices = FLAG_CHOICES)
-    upload_ip = models.IPAddressField(null = True, blank = True)
+    upload_ip = models.IPAddressField(null = True, blank = True, db_index = True)
     created_at = models.DateTimeField(auto_now_add = True)
 
     class Meta:
@@ -82,7 +82,7 @@ class Flag(models.Model):
 class Caption(models.Model):
     moment = models.ForeignKey(Moment)
     text = models.CharField(max_length = 255)
-    upload_ip = models.IPAddressField(null = True, blank = True)
+    upload_ip = models.IPAddressField(null = True, blank = True, db_index = True)
     created_at = models.DateTimeField(auto_now_add = True)
 
     class Meta:
