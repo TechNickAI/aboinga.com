@@ -3,7 +3,9 @@
 {% load verbatim %}
 
 {% block content %}
-<link rel="stylesheet" href="http://upload.aboinga.com/jquery.fileupload-ui.css">
+{% compress css %}
+<link rel="stylesheet" href="/static/css/jquery.fileupload-ui.css"/>
+{% endcompress %}
 <div id="status" style="display:none"></div>
 <div id="momentContainer">
   <div id="momentHeader"></div>
@@ -67,9 +69,9 @@
     </div>
 </script>
 {% endverbatim %}
-<script src="http://upload.aboinga.com/vendor/jquery.ui.widget.js"></script>
-<script src="http://upload.aboinga.com/jquery.fileupload.js"></script>
 {% compress js %}
+<script src="/static/js/jquery.ui.widget.js"></script>
+<script src="/static/js/jquery.fileupload.js"></script>
 <script src="/static/js/home.js"></script>
 {% endcompress %}
 
