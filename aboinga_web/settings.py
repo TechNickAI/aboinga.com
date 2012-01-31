@@ -46,7 +46,7 @@ NUMBER_GROUPING = 3
 # Store the sessions in files, not db
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 
-# Use etags. 
+# Use etags.
 USE_ETAGS = True
 
 APPEND_SLASH = False
