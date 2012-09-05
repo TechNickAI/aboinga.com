@@ -120,7 +120,7 @@ STATICFILES_FINDERS = (
 # COMPRESS settings
 # http://django_compressor.readthedocs.org/en/latest/settings/
 # Use this to force it on for dev. default is the opposite of DEBUG
-COMPRESS_ENABLED = True
+# COMPRESS_ENABLED = True
 COMPRESS_ROOT = ROOT_PATH + '/static/'
 COMPRESS_CSS_FILTERS = (
     'compressor.filters.css_default.CssAbsoluteFilter',
