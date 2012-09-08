@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+{% block title%}{% if moment_title %}{{moment_title}} - aboinga.com{% else %}aboinga.com{%endif %}{%endblock title%}
 {% block head_misc_extra %}
 {% if moment.public %}
   <link href="canonical" href="{{moment.get_absolute_url}}"/>
@@ -11,7 +12,7 @@
 
 {% block content %}
 <div id="momentContainer">
-  <div id="momentHeader">{{moment.slug}}</div>
+  <div id="momentHeader">{{moment.title}}</div>
   <div class="moment"><a href="{{moment.photo.url}}"/><img src="{{moment.photo.url}}"/></a></div>
 </div><!-- #momentContainer -->
 {% endblock content %}

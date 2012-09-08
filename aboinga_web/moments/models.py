@@ -33,6 +33,14 @@ class Moment(models.Model):
         super(Moment, self).delete(*args, **kwargs) # Call the "real" delete() method.
         os.remove(photofile)
 
+    def title(self):
+        captions = Caption.objects.filter(moment = self)
+        if len(captions) > 0:
+            return captions[0].text
+        else:
+            return ""
+
+
     def get_absolute_url(self):
         if self.public:
             return '/moment/%s' % self.slug
