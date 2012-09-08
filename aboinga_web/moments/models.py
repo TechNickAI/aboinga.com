@@ -1,3 +1,4 @@
+from django.contrib.sitemaps import Sitemap
 from django.db import models
 from hashlib import md5
 import os
@@ -60,6 +61,13 @@ class Moment(models.Model):
 
     class Meta:
         db_table = 'moments'
+
+class MomentSitemap(Sitemap):
+    changefreq = "weekly"
+    priority = "1.0"
+
+    def items(self):
+        return Moment.objects.filter(pk__in = Caption.objects.all().values('moment_id'))
 
 
 class Rating(models.Model):
