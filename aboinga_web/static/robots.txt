@@ -1,5 +1,5 @@
 User-agent: *
-Disallow: /internal_admin
+Disallow: /internal_admin/
 
 Sitemap: http://aboinga.com/sitemap.xml
 
