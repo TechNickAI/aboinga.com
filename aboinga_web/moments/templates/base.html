@@ -21,6 +21,9 @@
   {% block head_includes_css_extra %}{% endblock head_includes_css_extra %}
 
   {% block head_includes_js %}
+  <script>
+   window.Pilotfish || ((Pilotfish = function() { Pilotfish.q.push(arguments); }).q = []);
+  </script>
   <script src="/static/js/modernizr-2.6.1-respond-1.1.0.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/jquery-ui.min.js"></script>
