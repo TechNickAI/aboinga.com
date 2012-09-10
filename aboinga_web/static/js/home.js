@@ -19,6 +19,9 @@ var HomeRouter = window.Backbone.Router.extend({
         });
     }
 });
+HomeRouter.bind("all",function(route, router) {
+    Pilotfish('publish', 'core:thickClientView', {path: route});
+});
 
 
 $(document).ready(function() {
@@ -108,6 +111,7 @@ window.setupMomentHandlers = function(container) {
                 $(window).trigger("aboinga:delete");
             }
         });
+        Pilotfish('publish', 'aboinga:delete');
     });
 
     // Ratings
@@ -133,6 +137,7 @@ window.setupMomentHandlers = function(container) {
                 $(window).trigger("aboinga:rate", stars);
             }
         });
+        Pilotfish('publish', 'aboinga:rate');
     });
 
 
@@ -148,6 +153,7 @@ window.setupMomentHandlers = function(container) {
                 $(window).trigger("aboinga:next");
             }
         });
+        Pilotfish('publish', 'aboinga:next');
     });
 
     // Caption
@@ -178,6 +184,7 @@ window.setupMomentHandlers = function(container) {
                 $(window).trigger("aboinga:new_caption");
             }
         });
+        Pilotfish('publish', 'aboinga:new_caption');
     }
 };
 
@@ -263,4 +270,5 @@ $(function () {
             $('.fileupload-progressbar').fadeOut();
         }
     });
+    Pilotfish('publish', 'aboinga:upload');
 });
