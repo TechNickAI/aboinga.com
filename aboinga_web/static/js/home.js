@@ -109,9 +109,9 @@ window.setupMomentHandlers = function(container) {
                     $("#moment_" + img.attr("data-id")).remove();
                 }, 950);
                 $(window).trigger("aboinga:delete");
+                Pilotfish('tracker', 'delete');
             }
         });
-        Pilotfish('publish', 'aboinga:delete');
     });
 
     // Ratings
@@ -135,9 +135,9 @@ window.setupMomentHandlers = function(container) {
                 $.pnotify({"pnotify_title": "Thanks!", "pnotify_text": "Thanks for rating. The overall rating is <b>" + data.previous_results.avg_rating + '</b> (' + data.previous_results.ratings + ')'});
                 window.slugUrlChange(data.slug);
                 $(window).trigger("aboinga:rate", stars);
+                Pilotfish('tracker', 'rate');
             }
         });
-        Pilotfish('publish', 'aboinga:rate');
     });
 
 
@@ -151,9 +151,9 @@ window.setupMomentHandlers = function(container) {
                 $("#moment_" + img.attr("data-id")).fadeOut();
                 window.slugUrlChange(data.slug);
                 $(window).trigger("aboinga:next");
+                Pilotfish('tracker', 'next');
             }
         });
-        Pilotfish('publish', 'aboinga:next');
     });
 
     // Caption
@@ -182,9 +182,9 @@ window.setupMomentHandlers = function(container) {
                 $.pnotify({pnotify_title: "Thanks", pnotify_text: "Thanks for adding a caption!"});
                 container.find(".momentCaptions").html(window.ich.momentCaptionTemplate(caption));
                 $(window).trigger("aboinga:new_caption");
+                Pilotfish('tracker', 'new_caption');
             }
         });
-        Pilotfish('publish', 'aboinga:new_caption');
     }
 };
 
@@ -251,6 +251,7 @@ $(function () {
                     success: function(data) {
                             window.newMoment(data);
                             $.pnotify({pnotify_title:"Thanks", pnotify_text: "Thanks for uploading. You are awesome!"});
+                            Pilotfish('tracker', 'upload');
                     }
                 });
             });
@@ -270,5 +271,4 @@ $(function () {
             $('.fileupload-progressbar').fadeOut();
         }
     });
-    Pilotfish('publish', 'aboinga:upload');
 });
