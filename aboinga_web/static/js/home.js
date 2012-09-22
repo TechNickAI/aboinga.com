@@ -20,7 +20,7 @@ var HomeRouter = window.Backbone.Router.extend({
     }
 });
 HomeRouter.bind("all",function(route, router) {
-    Pilotfish('publish', 'core:thickClientView', {path: route});
+    Pilotfish('fire', 'core:thickClientView', {path: route});
 });
 
 
