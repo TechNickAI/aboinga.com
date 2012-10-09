@@ -2,6 +2,8 @@
 {% load compress %}
 
 {% block head_includes %}
+  <!-- Verifier for bing tools -->
+  <meta name="msvalidate.01" content="E58A923B2F39310F4C27C44A62917CB6" />
   {% block head_includes_css %}
      <link href='http://fonts.googleapis.com/css?family=Galindo' rel='stylesheet' type='text/css'>
      {% compress css %}
@@ -25,12 +27,12 @@
    window.Pilotfish || ((Pilotfish = function() { Pilotfish.q.push(arguments); }).q = []);
   </script>
   <script src="/static/js/modernizr-2.6.1-respond-1.1.0.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/jquery-ui.min.js"></script>
   {% compress js %}
   <script src="/static/js/underscore-1.2.3.js"></script>
   <script src="/static/js/backbone-0.5.3.js"></script>
-  <script src="/static/js/ICanHaz-0.9.js"></script>
+  <script src="/static/js/ICanHaz-0.10.js"></script>
   <script src="/static/js/jquery.pnotify-1.1.0.js"></script>
   <script src="/static/js/my.js"></script>
   <script src="/static/js/models.js"></script>
