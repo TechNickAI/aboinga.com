@@ -9,10 +9,10 @@
 <link rel="stylesheet" href="/static/css/jquery.fileupload-ui.css"/>
 {% endcompress %}
 <div id="status" style="display:none"></div>
-<div id="momentContainer">
+<div id="momentContainer" style="margin-top:15px">
   <div id="momentHeader"></div>
   <div id="moments"></div>
-  <div id="uploadContainer">
+  <div id="uploadContainer" class="usher" data-help-text="And if you have a good picture of yourself doing something silly, upload it!" data-help-order="4">
     Upload your embarassing pictures to be rated. Browse or Drag n' Drop.<br />
     <input id="fileupload" type="file" name="files[]" multiple="true"/>
     <div class="fileupload-buttonbar">
@@ -31,6 +31,7 @@
     <input type="radio" name="expires_at" value="1 month"/>a month
     -->
 
+    <div style="float:right" data-help-text="Pro tip. You can also drag and drop images right on to the page" data-help-order="5"/>
   </div><!-- #uploadContainer -->
 
 </div><!-- #momentContainer -->
@@ -44,7 +45,7 @@
 	  <img class="action rate" title="Inconsequential" data-id="{{id}}" data-rating="2" src="/static/img/rating_star_empty.gif"/>
 	  <img class="action rate" title="Eventful" data-id="{{id}}" data-rating="3" src="/static/img/rating_star_empty.gif"/>
 	  <img class="action rate" title="Noteworthy" data-id="{{id}}" data-rating="4" src="/static/img/rating_star_empty.gif"/>
-	  <img class="action rate" title="Significant" data-id="{{id}}" data-rating="5" src="/static/img/rating_star_empty.gif"/>
+	  <img class="action rate usher" title="Significant" data-id="{{id}}" data-help-text="Rate the picture from 1-10, based on how awesome it is. When you rate, you will see another one." data-help-order="2" data-rating="5" src="/static/img/rating_star_empty.gif"/>
 	  <img class="action rate" title="Remarkable" data-id="{{id}}" data-rating="6" src="/static/img/rating_star_empty.gif"/>
 	  <img class="action rate" title="Exceptional" data-id="{{id}}" data-rating="7" src="/static/img/rating_star_empty.gif"/>
 	  <img class="action rate" title="Monumental" data-id="{{id}}" data-rating="8" src="/static/img/rating_star_empty.gif"/>
@@ -55,10 +56,10 @@
 	  <img class="action delete" title="Take it down" data-id="{{id}}" src="/static/img/delete.png">
 	  <img class="action next" title="Next" data-id="{{id}}" src="/static/img/arrow_right.png">
 	</div>
-	<a href="{{permalink}}"><img class="photo" src="{{ photo }}"/></a><br />
+	<a href="{{permalink}}"><img class="usher photo" src="{{ photo }}" data-help-text="View funny pictures of people in embarassing situations. These are the pictures that can't be on Facebook." data-help-order="1"/></a><br />
 	<div class="uploadedInfo">Uploaded <span title="{{created_at}}">{{ created_at_ago }} by {{upload_ip}}</div>
 
-	<div class="newCaption" style="clear:both">
+	<div class="usher newCaption" style="clear:both" data-help-text="Got something funny to add? Add a caption for this picture!" data-help-order="3">
         <input data-moment-id="{{id}}" maxlength="60" type="text" placeholder="Caption this picture..." style="width: 250px;"/>
     </div>
 

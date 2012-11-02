@@ -61,6 +61,7 @@
                     <a class="brand" href="/">Aboinga</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
+                            <li><a href="#tour" class="usher usher-link" data-help-text="That completes the tour. Get busy rating to see more pictures!" data-help-order="9">Tour</a></li>
                             <li><a href="/about">About</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Actons <b class="caret"></b></a>
@@ -105,11 +106,10 @@ Powered by <a href="http://pilotfish.io">Pilotfish, a user experience toolkit </
     s.parentNode.insertBefore(p, s);
 })(window, document, "script");
 // Plugins
-Pilotfish('require', 'recorder');
 Pilotfish('require', 'blower');
 Pilotfish('require', 'speaker');
 Pilotfish('speaker', 'init', {'classes': 'bootstrap'});
-Pilotfish('require', 'usher');
+Pilotfish('require', 'recorder');
 Pilotfish('recorder', 'init', {
     backends: {
        'google-analytics': {'accountid': 'UA-34673305-1', 'domain': 'aboinga.com'},
@@ -118,5 +118,10 @@ Pilotfish('recorder', 'init', {
     },
     hashChangePageView: true
 });
+Pilotfish('require', 'usher');
+jQuery(".usher-link").click(function(e) {
+    e.preventDefault();
+    Pilotfish('usher', {'classes': 'bootstrap'});
+})
 </script>
 {% endblock bare_content %}
