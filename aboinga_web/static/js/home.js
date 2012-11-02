@@ -29,15 +29,9 @@ $(document).ready(function() {
     var app_router = new window.HomeRouter();
     // Start Backbone history a neccesary step for bookmarkable URL's
     window.Backbone.history.start();
-});
-
-
-// pnotify set up defaults
-jQuery(document).ready(function() {
-    jQuery.pnotify.defaults.pnotify_delay = 3000;
-    jQuery.pnotify.defaults.pnotify_animation = 'slide';
     jQuery("img[title]").tooltip();
 });
+
 
 window.setupMomentHandlers = function(container) {
     //// Set up the handlers
@@ -86,7 +80,7 @@ window.setupMomentHandlers = function(container) {
             },
             success: function(data) {
                 $("#moment_" + img.attr("data-id")).fadeOut();
-                $.pnotify({"pnotify_title": "Thanks!", "pnotify_text": "Thanks for rating. The overall rating is <b>" + data.previous_results.avg_rating + '</b> (' + data.previous_results.ratings + ')'});
+                Pilotfish('speaker', "Thanks for rating. The overall rating is <b>" + data.previous_results.avg_rating + '</b> (' + data.previous_results.ratings + ')', {'timeout': 3000, 'type': 'success'});
                 window.slugUrlChange(data.slug);
                 $(window).trigger("aboinga:rate", stars);
                 Pilotfish('recorder', 'rate');
@@ -133,7 +127,7 @@ window.setupMomentHandlers = function(container) {
         var caption = {text: text, moment_id: $(target).attr("data-moment-id")};
         window.Captions.create(caption, {
             success: function() {
-                $.pnotify({pnotify_title: "Thanks", pnotify_text: "Thanks for adding a caption!"});
+                Pilotfish('speaker', "Thanks for adding a caption!", {'timeout': 3000, 'type': 'success'});
                 container.find(".momentCaptions").html(window.ich.momentCaptionTemplate(caption));
                 $(window).trigger("aboinga:new_caption");
                 Pilotfish('recorder', 'new_caption');
@@ -204,7 +198,7 @@ $(function () {
                     },
                     success: function(data) {
                             window.newMoment(data);
-                            $.pnotify({pnotify_title:"Thanks", pnotify_text: "Thanks for uploading. You are awesome!"});
+                            Pilotfish('speaker', "Thanks for uploading. You are awesome!", {'timeout': 3000, 'type': 'success'});
                             Pilotfish('recorder', 'upload');
                     }
                 });
