@@ -15,6 +15,7 @@ var HomeRouter = window.Backbone.Router.extend({
                 var moment = window.setupMoment(data.objects[0]);
                 jQuery("#moments").empty().append(moment);
                 moment.show("clip", "slow");
+                jQuery("img[title]").tooltip();
             }
         });
     }
@@ -35,59 +36,12 @@ $(document).ready(function() {
 jQuery(document).ready(function() {
     jQuery.pnotify.defaults.pnotify_delay = 3000;
     jQuery.pnotify.defaults.pnotify_animation = 'slide';
-    window.hoverTip = $.pnotify({
-        pnotify_title: null,
-        pnotify_text: "",
-        pnotify_hide: false,
-        pnotify_closer: false,
-        pnotify_sticker: false,
-        pnotify_history: false,
-        pnotify_animate_speed: 100,
-        pnotify_opacity: 0.8,
-        pnotify_notice_icon: "",
-        // Setting stack to false causes Pines Notify to ignore this notice when positioning.
-        pnotify_stack: false,
-        pnotify_after_init: function(pnotify) {
-            // Remove the notice if the user mouses over it.
-            pnotify.mouseout(function() {
-                pnotify.pnotify_remove();
-            });
-        },
-        pnotify_before_open: function(pnotify) {
-            // This prevents the notice from displaying when it's created.
-            pnotify.pnotify({
-                pnotify_before_open: null
-            });
-            return false;
-        }
-    });
-
-    window.hoverTips = function(collection) {
-        jQuery.each(collection.not("[data-title]"), function(i, item) {
-            var $item = $(item);
-            $item.attr("data-title", $item.attr("title"));
-            $item.removeAttr("title");
-        });
-        collection.mouseover(function() {
-            window.hoverTip.find(".ui-pnotify-text").html($(this).attr("data-title"));
-            window.hoverTip.pnotify_display();
-        });
-        collection.mouseout(function() {
-            window.hoverTip.pnotify_remove();
-        });
-        collection.mousemove(function(e) {
-            window.hoverTip.css({'top': e.clientY+12, 'left': e.clientX+12});
-        });
-    };
-
-    window.hoverTips(jQuery("img[title]"));
+    jQuery("img[title]").tooltip();
 });
 
 window.setupMomentHandlers = function(container) {
     //// Set up the handlers
 
-    // Mouse overs
-    window.hoverTips(container.find("img[title]"));
 
     // Delete
     container.find("img.delete").click(function() {
@@ -158,7 +112,7 @@ window.setupMomentHandlers = function(container) {
 
     // Caption
     container.find(".newCaption input").blur(submitCaption).bind("keypress", function(e) {
-        var code = (e.keyCode ? e.keyCode : e.which);
+        var code = e.keyCode || e.which;
         if (code == 13) { //Enter keycode
             submitCaption(e);
         }
@@ -166,7 +120,7 @@ window.setupMomentHandlers = function(container) {
 
     var submittedCaptions = [];
     function submitCaption(e) {
-        var target = (e.currentTarget) ? e.currentTarget : e.srcElement;
+        var target = e.currentTarget || e.srcElement;
         var text = $.trim($(target).val());
         if (! text ) {
             return;
