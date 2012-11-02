@@ -91,6 +91,7 @@
         </div>
        <footer>
        </footer>
+<link href="http://cdn.pilotfish.io/client/plugins/speaker/pilotfish-speaker.css" rel="stylesheet"/>
 <script src="/static/js/bootstrap.min.js"></script>
 Powered by <a href="http://pilotfish.io">Pilotfish, a user experience toolkit </a>
 <!-- Pilotfish -->
@@ -107,8 +108,7 @@ Powered by <a href="http://pilotfish.io">Pilotfish, a user experience toolkit </
 })(window, document, "script");
 // Plugins
 Pilotfish('require', 'blower');
-Pilotfish('require', 'speaker');
-Pilotfish('speaker', 'init', {'classes': 'bootstrap'});
+Pilotfish('require', 'speaker', 'https://raw.github.com/pilotfish/pilotfish/master/plugins/speaker/pilotfish-speaker.js');
 Pilotfish('require', 'recorder');
 Pilotfish('recorder', 'init', {
     backends: {
@@ -118,10 +118,10 @@ Pilotfish('recorder', 'init', {
     },
     hashChangePageView: true
 });
-Pilotfish('require', 'usher');
+Pilotfish('require', 'usher', 'https://raw.github.com/pilotfish/pilotfish/master/plugins/usher/pilotfish-usher.js');
 jQuery(".usher-link").click(function(e) {
     e.preventDefault();
-    Pilotfish('usher', {'classes': 'bootstrap'});
+    Pilotfish('usher');
 })
 </script>
 {% endblock bare_content %}
