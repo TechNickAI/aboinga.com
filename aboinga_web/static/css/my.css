@@ -46,3 +46,12 @@ input {
 .hero-unit {
     background-color: white;
 }
+
+#dndtarget {
+    width:100px;
+    height:100px;
+    margin-left: 25px;
+    border:2px dashed black;
+    background-color:#D0D0D0;
+    padding:  20px;
+}
