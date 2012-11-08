@@ -123,6 +123,7 @@ Pilotfish('recorder', 'init', {
     hashChangePageView: true
 });
 Pilotfish('require', 'usher', 'https://raw.github.com/pilotfish/pilotfish/master/plugins/usher/pilotfish-usher.js');
+Pilotfish('usher', 'welcome');
 jQuery(".usher-link").click(function(e) {
     e.preventDefault();
     Pilotfish('usher');
