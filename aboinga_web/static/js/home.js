@@ -48,6 +48,7 @@ window.setupMomentHandlers = function(container) {
             // Safety net so we don't delete all
             return;
         }
+        $(".tooltip").remove();
         $.ajax({
             url: window.Moments.url() + id,
             type: 'DELETE',
@@ -71,6 +72,7 @@ window.setupMomentHandlers = function(container) {
             // Safety net
             return;
         }
+        $(".tooltip").remove();
         $.ajax({
             url: window.Moments.url() + 'slot_machine',
             type: 'POST',
@@ -93,6 +95,7 @@ window.setupMomentHandlers = function(container) {
     container.find("img.next").click(function() {
         var img = $(this);
         var id = img.attr("data-id");
+        $(".tooltip").remove();
         $.ajax({
             url: window.Moments.url() + 'slot_machine',
             success: function(data) {
@@ -107,7 +110,7 @@ window.setupMomentHandlers = function(container) {
     // Caption
     container.find(".newCaption input").blur(submitCaption).bind("keypress", function(e) {
         var code = e.keyCode || e.which;
-        if (code == 13) { //Enter keycode
+        if (code === 13) { //Enter keycode
             submitCaption(e);
         }
     });
@@ -171,7 +174,7 @@ window.slugUrlChange = function(slug) {
 };
 
 // Pull in the first one
-if (window.location.hash.indexOf("moment") == -1){
+if (window.location.hash.indexOf("moment") === -1){
     $.ajax({
         url: window.Moments.url() + 'slot_machine',
         success: function(data) {
