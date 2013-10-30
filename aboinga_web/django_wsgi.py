@@ -3,7 +3,7 @@ import sys
 
 # Virtualenv. See http://code.google.com/p/modwsgi/wiki/VirtualEnvironments
 import site
-site.addsitedir('/var/www/aboinga.com/prodenv/lib/python2.6/site-packages')
+site.addsitedir('/home/nick/.virtualenvs/aboinga/lib/python2.6/site-packages')
 
 # Add the current dir to path
 sys.path.append(os.path.dirname(__file__))
